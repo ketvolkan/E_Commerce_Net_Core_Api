@@ -52,6 +52,25 @@ builder.Services.AddCors(options =>
 builder.Services.AddAutoMapper(cfg =>
 {
     cfg.AddMaps(typeof(ProductProfile).Assembly);
+    cfg.AddMaps(typeof(CategoryProfile).Assembly);
+    cfg.AddMaps(typeof(AddressProfile).Assembly);
+    cfg.AddMaps(typeof(BrandProfile).Assembly);
+    cfg.AddMaps(typeof(CartItemProfile).Assembly);
+    cfg.AddMaps(typeof(CartProfile).Assembly);
+    cfg.AddMaps(typeof(CategoryProfile).Assembly);
+    cfg.AddMaps(typeof(FavoriteProfile).Assembly);
+    cfg.AddMaps(typeof(OperationClaimProfile).Assembly);
+    cfg.AddMaps(typeof(OrderItemProfile).Assembly);
+    cfg.AddMaps(typeof(OrderProfile).Assembly);
+    cfg.AddMaps(typeof(ProductProfile).Assembly);
+    cfg.AddMaps(typeof(ProductQuestionProfile).Assembly);
+    cfg.AddMaps(typeof(ProductReviewProfile).Assembly);
+    cfg.AddMaps(typeof(StoreProfile).Assembly);
+    cfg.AddMaps(typeof(SubOrderProfile).Assembly);
+    cfg.AddMaps(typeof(UserOperationClaimProfile).Assembly);
+    cfg.AddMaps(typeof(UserProfile).Assembly);
+
+
 });
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>

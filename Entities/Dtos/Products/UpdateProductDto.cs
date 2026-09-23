@@ -1,5 +1,6 @@
 using System.Collections.Generic;
-
+using Entities.Dtos.ProductImages;
+using Entities.Dtos.ProductVariants;
 namespace Entities.Dtos.Products
 {
     public class UpdateProductDto

@@ -1,5 +1,7 @@
 ﻿namespace Business.DependencyResolvers.AutoMapper;
 
+using Entities.Dtos.ProductImages;
+using Entities.Dtos.ProductVariants;
 using Entities.Concrete;
 using Entities.Dtos.Products;
 using global::AutoMapper;

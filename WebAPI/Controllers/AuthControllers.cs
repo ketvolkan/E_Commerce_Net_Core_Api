@@ -59,4 +59,6 @@ public class AuthController : ControllerBase
 
         return BadRequest(result);
     }
+
+    // register-store endpoint removed; use POST api/auth/register and set AccountType in DTO if needed
 }

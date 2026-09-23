@@ -7,6 +7,9 @@ using Entities.DTOs;
 
 public interface IAuthService
 {
+    /// <summary>
+    /// Registers a new user. Implementation will read AccountType from DTO.
+    /// </summary>
     IDataResult<User> Register(UserForRegisterDto userForRegisterDto, string password);
     IDataResult<User> Login(UserForLoginDto userForLoginDto);
     IResult UserExists(string email);
