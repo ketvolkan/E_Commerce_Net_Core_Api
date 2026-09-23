@@ -6,4 +6,5 @@ using Entities.Concrete;
 
 public interface IUserDal : IEntityRepository<User>
 {
+    List<OperationClaim> GetClaims(User user);
 }

@@ -3,7 +3,6 @@
 using Core.Entities.Concrete;
 using Entities.Concrete;
 using Microsoft.EntityFrameworkCore;
-using System.Net;
 
 public class ECommerceDbContext : DbContext
 {
@@ -17,7 +16,10 @@ public class ECommerceDbContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        if (!optionsBuilder.IsConfigured) optionsBuilder.UseNpgsql("Host=localhost;Database=e_commerce_db;Username=postgres;Password=1234");
+        if (!optionsBuilder.IsConfigured)
+        {
+            optionsBuilder.UseNpgsql("Host=localhost;Database=e_commerce_db;Username=postgres;Password=1234");
+        }
     }
 
     public DbSet<User> Users => Set<User>();
