@@ -20,7 +20,6 @@ public class CategoryManager : ICategoryService
         _mapper = mapper;
     }
 
-    [SecuredOperation("category.getall")]
     public IDataResult<List<CategoryListDto>> GetAll()
     {
         var categories = _categoryDal.GetList();
@@ -28,7 +27,6 @@ public class CategoryManager : ICategoryService
         return new SuccessDataResult<List<CategoryListDto>>(dtos);
     }
 
-    [SecuredOperation("category.getall")]
     public IDataResult<CategoryDetailDto> GetById(int id)
     {
         var category = _categoryDal.Get(c => c.Id == id);

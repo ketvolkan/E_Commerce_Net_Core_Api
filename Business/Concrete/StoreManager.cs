@@ -21,7 +21,6 @@ public class StoreManager : IStoreService
         _mapper = mapper;
     }
 
-    [SecuredOperation("store.getall")]
     public IDataResult<List<StoreListDto>> GetAll()
     {
         var list = _storeDal.GetList();

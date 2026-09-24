@@ -21,7 +21,6 @@ public class BrandManager : IBrandService
         _mapper = mapper;
     }
 
-    [SecuredOperation("brand.getall")]
     public IDataResult<List<BrandListDto>> GetAll()
     {
         var list = _brandDal.GetList();
@@ -35,7 +34,6 @@ public class BrandManager : IBrandService
         return new PagedDataResult<BrandListDto>(dtos, paged.TotalCount, paged.PageNumber, paged.PageSize);
     }
 
-    [SecuredOperation("brand.getall")]
     public IDataResult<BrandDetailDto> GetById(int id)
     {
         var entity = _brandDal.Get(b => b.Id == id);

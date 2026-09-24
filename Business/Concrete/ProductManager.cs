@@ -40,7 +40,6 @@ public class ProductManager : IProductService
         return new PagedDataResult<ProductDetailDto>(productDtos, pagedProducts.TotalCount, pagedProducts.PageNumber, pagedProducts.PageSize, "Ürünler sayfalanmış olarak listelendi.");
     }
 
-    [SecuredOperation("product.getall")]
     public IDataResult<ProductDetailDto> GetById(int id)
     {
         var product = _productDal.GetWithDetails(p => p.Id == id);
@@ -53,7 +52,6 @@ public class ProductManager : IProductService
         return new SuccessDataResult<ProductDetailDto>(productDto);
     }
 
-    [SecuredOperation("product.getall")]
     public IDataResult<List<ProductDetailDto>> GetListByCategoryId(int categoryId)
     {
         var products = _productDal.GetListWithDetails(p => p.CategoryId == categoryId);
