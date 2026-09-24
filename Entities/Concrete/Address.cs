@@ -1,4 +1,4 @@
-﻿using Core.Entities;
+using Core.Entities;
 using System;
 using Core.Entities.Concrete;
 using System.Collections.Generic;
@@ -11,10 +11,14 @@ namespace Entities.Concrete
         public int Id { get; set; }
         public int UserId { get; set; }
         public string Title { get; set; } = string.Empty;
+        public string ContactName { get; set; } = string.Empty;
+        public string PhoneNumber { get; set; } = string.Empty;
         public string City { get; set; } = string.Empty;
         public string District { get; set; } = string.Empty;
         public string AddressDetail { get; set; } = string.Empty;
         public string ZipCode { get; set; } = string.Empty;
+        public string? TaxNumber { get; set; }
+        public string? TaxOffice { get; set; }
 
         public User? User { get; set; }
     }

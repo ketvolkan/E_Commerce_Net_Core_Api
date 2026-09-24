@@ -1,4 +1,4 @@
-﻿namespace WebAPI.Controllers;
+namespace WebAPI.Controllers;
 
 using Business.Abstract;
 using Entities.Dtos.Products;
@@ -54,6 +54,36 @@ public class ProductsController : ControllerBase
     public IActionResult GetByCategoryId(int categoryId)
     {
         var result = _productService.GetListByCategoryId(categoryId);
+        if (result.Success)
+        {
+            return Ok(result);
+        }
+        return BadRequest(result);
+    }
+
+    /// <summary>
+    /// Giriş yapan satıcının kendi ürünlerini listeler
+    /// GET: api/products/my-products
+    /// </summary>
+    [HttpGet("my-products")]
+    public IActionResult GetMyProducts()
+    {
+        var result = _productService.GetMyProducts();
+        if (result.Success)
+        {
+            return Ok(result);
+        }
+        return BadRequest(result);
+    }
+
+    /// <summary>
+    /// Belirli bir satıcıya ait ürünleri listeler
+    /// GET: api/products/user/2
+    /// </summary>
+    [HttpGet("user/{userId:int}")]
+    public IActionResult GetByUserId(int userId)
+    {
+        var result = _productService.GetListByUserId(userId);
         if (result.Success)
         {
             return Ok(result);

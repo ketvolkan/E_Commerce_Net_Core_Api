@@ -31,6 +31,22 @@ public class BrandsController : ControllerBase
         return NotFound(result);
     }
 
+    [HttpGet("my-brands")]
+    public IActionResult GetMyBrands()
+    {
+        var result = _brandService.GetMyBrands();
+        if (result.Success) return Ok(result);
+        return BadRequest(result);
+    }
+
+    [HttpGet("user/{userId:int}")]
+    public IActionResult GetByUserId(int userId)
+    {
+        var result = _brandService.GetListByUserId(userId);
+        if (result.Success) return Ok(result);
+        return BadRequest(result);
+    }
+
     [HttpPost]
     public IActionResult Add([FromBody] CreateBrandDto dto)
     {

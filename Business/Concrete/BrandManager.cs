@@ -35,10 +35,24 @@ public class BrandManager : IBrandService
         return new SuccessDataResult<BrandDetailDto>(_mapper.Map<BrandDetailDto>(entity));
     }
 
+    public IDataResult<List<BrandListDto>> GetListByUserId(int userId)
+    {
+        var list = _brandDal.GetList(b => b.UserId == userId);
+        return new SuccessDataResult<List<BrandListDto>>(_mapper.Map<List<BrandListDto>>(list));
+    }
+
+    public IDataResult<List<BrandListDto>> GetMyBrands()
+    {
+        var userId = Core.Utilities.Security.CurrentUser.GetUserId();
+        return GetListByUserId(userId);
+    }
+
     [SecuredOperation("brand.add")]
     public IResult Add(CreateBrandDto createBrandDto)
     {
+        var userId = Core.Utilities.Security.CurrentUser.GetUserId();
         var entity = _mapper.Map<Brand>(createBrandDto);
+        entity.UserId = userId;
         _brandDal.Add(entity);
         return new SuccessResult(Messages.BrandAdded);
     }
@@ -48,7 +62,13 @@ public class BrandManager : IBrandService
     {
         var existing = _brandDal.Get(b => b.Id == updateBrandDto.Id);
         if (existing == null) return new ErrorResult(Messages.BrandNotFoundForUpdate);
+
+        var userId = Core.Utilities.Security.CurrentUser.GetUserId();
+        if (!Core.Utilities.Security.CurrentUser.IsAdmin() && existing.UserId != userId)
+            return new ErrorResult(Messages.AuthorizationDenied);
+
         _mapper.Map(updateBrandDto, existing);
+        existing.UserId = userId;
         _brandDal.Update(existing);
         return new SuccessResult(Messages.BrandUpdated);
     }
@@ -58,6 +78,11 @@ public class BrandManager : IBrandService
     {
         var existing = _brandDal.Get(b => b.Id == id);
         if (existing == null) return new ErrorResult(Messages.BrandNotFoundForDelete);
+
+        var userId = Core.Utilities.Security.CurrentUser.GetUserId();
+        if (!Core.Utilities.Security.CurrentUser.IsAdmin() && existing.UserId != userId)
+            return new ErrorResult(Messages.AuthorizationDenied);
+
         _brandDal.Delete(existing);
         return new SuccessResult(Messages.BrandDeleted);
     }

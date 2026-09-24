@@ -1,4 +1,4 @@
-﻿namespace Business.Concrete;
+namespace Business.Concrete;
 
 using AutoMapper;
 using Business.Abstract;
@@ -53,11 +53,27 @@ public class ProductManager : IProductService
         return new SuccessDataResult<List<ProductDetailDto>>(productDtos);
     }
 
+    public IDataResult<List<ProductDetailDto>> GetListByUserId(int userId)
+    {
+        var products = _productDal.GetListWithDetails(p => p.UserId == userId);
+        var productDtos = _mapper.Map<List<ProductDetailDto>>(products);
+
+        return new SuccessDataResult<List<ProductDetailDto>>(productDtos);
+    }
+
+    public IDataResult<List<ProductDetailDto>> GetMyProducts()
+    {
+        var userId = Core.Utilities.Security.CurrentUser.GetUserId();
+        return GetListByUserId(userId);
+    }
+
     [ValidationAspect(typeof(CreateProductDtoValidator))]
     [SecuredOperation("product.add")]
     public IResult Add(CreateProductDto createProductDto)
     {
+        var userId = Core.Utilities.Security.CurrentUser.GetUserId();
         var product = _mapper.Map<Product>(createProductDto);
+        product.UserId = userId;
         _productDal.Add(product);
         return new SuccessResult(Messages.ProductAdded);
     }
@@ -72,16 +88,30 @@ public class ProductManager : IProductService
             return new ErrorResult(Messages.ProductNotFoundForUpdate);
         }
 
+        var userId = Core.Utilities.Security.CurrentUser.GetUserId();
+        if (!Core.Utilities.Security.CurrentUser.IsAdmin() && existingProduct.UserId != userId)
+        {
+            return new ErrorResult(Messages.AuthorizationDenied);
+        }
+
         _mapper.Map(updateProductDto, existingProduct);
+        existingProduct.UserId = userId;
         _productDal.Update(existingProduct);
         return new SuccessResult(Messages.ProductUpdated);
     }
+
     public IResult Delete(int id)
     {
         var product = _productDal.Get(p => p.Id == id);
         if (product == null)
         {
             return new ErrorResult(Messages.ProductNotFoundForDelete);
+        }
+
+        var userId = Core.Utilities.Security.CurrentUser.GetUserId();
+        if (!Core.Utilities.Security.CurrentUser.IsAdmin() && product.UserId != userId)
+        {
+            return new ErrorResult(Messages.AuthorizationDenied);
         }
 
         _productDal.Delete(product);

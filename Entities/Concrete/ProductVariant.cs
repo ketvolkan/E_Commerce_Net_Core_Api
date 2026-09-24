@@ -1,4 +1,4 @@
-﻿using Core.Entities;
+using Core.Entities;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -16,6 +16,7 @@ namespace Entities.Concrete
         public decimal DiscountPrice { get; set; }
         public string Color { get; set; } = string.Empty;
         public string Size { get; set; } = string.Empty;
+        public bool IsActive { get; set; } = true;
 
         public Product? Product { get; set; }
         public Store? Store { get; set; }

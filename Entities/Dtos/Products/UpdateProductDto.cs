@@ -6,6 +6,7 @@ namespace Entities.Dtos.Products
     public class UpdateProductDto
     {
         public int Id { get; set; }
+        public int UserId { get; set; }
         public int CategoryId { get; set; }
         public int BrandId { get; set; }
         public string Name { get; set; } = string.Empty;

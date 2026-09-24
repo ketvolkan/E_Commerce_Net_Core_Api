@@ -1,8 +1,8 @@
 ﻿{
     "info":  {
-                 "_postman_id":  "839bc364-6b8d-4302-a4f3-44a1f9edb19f",
+                 "_postman_id":  "e4acffbb-e666-4108-89e3-bcbc8febfa80",
                  "name":  "E-Commerce Micro-Monolith API (.NET 10 \u0026 PostgreSQL)",
-                 "description":  "Trendyol benzeri Multi-Vendor E-Ticaret RESTful API Postman Koleksiyonu.\n\nÖzellikler:\n- 18 Controller ve 88+ Endpoint\n- Gerçekçi Türkçe E-Ticaret verileri (DTO validasyonlarına tam uyumlu)\n- Otomatik JWT Token Yönetimi (Login/Register sonrasında token değişkeni otomatik güncellenir)\n- Bearer Token yetkilendirme altyapısı",
+                 "description":  "Trendyol benzeri Multi-Vendor E-Ticaret RESTful API Postman Koleksiyonu.\n\nÃ–zellikler:\n- 18 Controller ve 88+ Endpoint\n- GerÃ§ekÃ§i TÃ¼rkÃ§e E-Ticaret verileri (DTO validasyonlarÄ±na tam uyumlu)\n- Otomatik JWT Token YÃ¶netimi (Login/Register sonrasÄ±nda token deÄŸiÅŸkeni otomatik gÃ¼ncellenir)\n- Bearer Token yetkilendirme altyapÄ±sÄ±",
                  "schema":  "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
              },
     "auth":  {
@@ -29,11 +29,11 @@
                  ],
     "item":  [
                  {
-                     "name":  "01. Kimlik Doğrulama \u0026 Yetkilendirme (Auth)",
-                     "description":  "Kullanıcı kaydı ve JWT token alma işlemleri",
+                     "name":  "01. Kimlik DoÄŸrulama \u0026 Yetkilendirme (Auth)",
+                     "description":  "KullanÄ±cÄ± kaydÄ± ve JWT token alma iÅŸlemleri",
                      "item":  [
                                   {
-                                      "name":  "Müşteri Kaydı (Register - User)",
+                                      "name":  "MÃ¼ÅŸteri KaydÄ± (Register - User)",
                                       "request":  {
                                                       "method":  "POST",
                                                       "header":  [
@@ -59,7 +59,7 @@
                                                                },
                                                       "body":  {
                                                                    "mode":  "raw",
-                                                                   "raw":  "{\n  \"firstName\": \"Ahmet\",\n  \"lastName\": \"Yılmaz\",\n  \"email\": \"ahmet.yilmaz@example.com\",\n  \"password\": \"Password123*\",\n  \"phoneNumber\": \"05551234567\",\n  \"accountType\": 2\n}",
+                                                                   "raw":  "{\n  \"firstName\": \"Ahmet\",\n  \"lastName\": \"YÄ±lmaz\",\n  \"email\": \"ahmet.yilmaz@example.com\",\n  \"password\": \"Password123*\",\n  \"phoneNumber\": \"05551234567\",\n  \"accountType\": 2\n}",
                                                                    "options":  {
                                                                                    "raw":  {
                                                                                                "language":  "json"
@@ -86,7 +86,7 @@
                                                 ]
                                   },
                                   {
-                                      "name":  "Satıcı Kaydı (Register - StoreOwner)",
+                                      "name":  "SatÄ±cÄ± KaydÄ± (Register - StoreOwner)",
                                       "request":  {
                                                       "method":  "POST",
                                                       "header":  [
@@ -139,7 +139,7 @@
                                                 ]
                                   },
                                   {
-                                      "name":  "Giriş Yap (Login) -\u003e Otomatik Token Kaydeder",
+                                      "name":  "GiriÅŸ Yap (Login) -\u003e Otomatik Token Kaydeder",
                                       "request":  {
                                                       "method":  "POST",
                                                       "header":  [
@@ -194,11 +194,11 @@
                               ]
                  },
                  {
-                     "name":  "02. Mağazalar (Stores)",
-                     "description":  "Çok satıcılı pazar yeri mağaza yönetimi",
+                     "name":  "02. MaÄŸazalar (Stores)",
+                     "description":  "Ã‡ok satÄ±cÄ±lÄ± pazar yeri maÄŸaza yÃ¶netimi",
                      "item":  [
                                   {
-                                      "name":  "Tüm Mağazaları Listele",
+                                      "name":  "TÃ¼m MaÄŸazalarÄ± Listele",
                                       "request":  {
                                                       "method":  "GET",
                                                       "header":  [
@@ -221,7 +221,7 @@
                                                   }
                                   },
                                   {
-                                      "name":  "ID\u0027ye Göre Mağaza Getir",
+                                      "name":  "ID\u0027ye GÃ¶re MaÄŸaza Getir",
                                       "request":  {
                                                       "method":  "GET",
                                                       "header":  [
@@ -245,7 +245,7 @@
                                                   }
                                   },
                                   {
-                                      "name":  "Yeni Mağaza Oluştur",
+                                      "name":  "Yeni MaÄŸaza OluÅŸtur",
                                       "request":  {
                                                       "method":  "POST",
                                                       "header":  [
@@ -267,7 +267,7 @@
                                                               },
                                                       "body":  {
                                                                    "mode":  "raw",
-                                                                   "raw":  "{\n  \"name\": \"Butik Moda Mağazası\",\n  \"taxNumber\": \"1234567890\",\n  \"taxOffice\": \"Kadıköy Vergi Dairesi\",\n  \"iban\": \"TR330006100511123456789012\",\n  \"logoUrl\": \"https://cdn.example.com/stores/butik-moda.png\"\n}",
+                                                                   "raw":  "{\n  \"name\": \"Butik Moda MaÄŸazasÄ±\",\n  \"taxNumber\": \"1234567890\",\n  \"taxOffice\": \"KadÄ±kÃ¶y Vergi Dairesi\",\n  \"iban\": \"TR330006100511123456789012\",\n  \"logoUrl\": \"https://cdn.example.com/stores/butik-moda.png\"\n}",
                                                                    "options":  {
                                                                                    "raw":  {
                                                                                                "language":  "json"
@@ -277,7 +277,7 @@
                                                   }
                                   },
                                   {
-                                      "name":  "Mağaza Güncelle",
+                                      "name":  "MaÄŸaza GÃ¼ncelle",
                                       "request":  {
                                                       "method":  "PUT",
                                                       "header":  [
@@ -299,7 +299,7 @@
                                                               },
                                                       "body":  {
                                                                    "mode":  "raw",
-                                                                   "raw":  "{\n  \"id\": 1,\n  \"userId\": 1,\n  \"name\": \"Butik Moda \u0026 Tasarım A.Ş.\",\n  \"taxNumber\": \"1234567890\",\n  \"taxOffice\": \"Kadıköy Vergi Dairesi\",\n  \"iban\": \"TR330006100511123456789012\",\n  \"logoUrl\": \"https://cdn.example.com/stores/butik-moda-v2.png\",\n  \"rating\": 4.8,\n  \"isApproved\": true\n}",
+                                                                   "raw":  "{\n  \"id\": 1,\n  \"userId\": 1,\n  \"name\": \"Butik Moda \u0026 TasarÄ±m A.Å.\",\n  \"taxNumber\": \"1234567890\",\n  \"taxOffice\": \"KadÄ±kÃ¶y Vergi Dairesi\",\n  \"iban\": \"TR330006100511123456789012\",\n  \"logoUrl\": \"https://cdn.example.com/stores/butik-moda-v2.png\",\n  \"rating\": 4.8,\n  \"isApproved\": true\n}",
                                                                    "options":  {
                                                                                    "raw":  {
                                                                                                "language":  "json"
@@ -309,7 +309,7 @@
                                                   }
                                   },
                                   {
-                                      "name":  "Mağaza Sil",
+                                      "name":  "MaÄŸaza Sil",
                                       "request":  {
                                                       "method":  "DELETE",
                                                       "header":  [
@@ -336,10 +336,10 @@
                  },
                  {
                      "name":  "03. Kategoriler (Categories)",
-                     "description":  "Ürün hiyerarşik kategori yönetimi",
+                     "description":  "ÃœrÃ¼n hiyerarÅŸik kategori yÃ¶netimi",
                      "item":  [
                                   {
-                                      "name":  "Tüm Kategorileri Listele",
+                                      "name":  "TÃ¼m Kategorileri Listele",
                                       "request":  {
                                                       "method":  "GET",
                                                       "header":  [
@@ -362,7 +362,7 @@
                                                   }
                                   },
                                   {
-                                      "name":  "ID\u0027ye Göre Kategori Getir",
+                                      "name":  "ID\u0027ye GÃ¶re Kategori Getir",
                                       "request":  {
                                                       "method":  "GET",
                                                       "header":  [
@@ -408,7 +408,7 @@
                                                               },
                                                       "body":  {
                                                                    "mode":  "raw",
-                                                                   "raw":  "{\n  \"parentCategoryId\": null,\n  \"name\": \"Kadın Giyim\",\n  \"slug\": \"kadin-giyim\"\n}",
+                                                                   "raw":  "{\n  \"parentCategoryId\": null,\n  \"name\": \"KadÄ±n Giyim\",\n  \"slug\": \"kadin-giyim\"\n}",
                                                                    "options":  {
                                                                                    "raw":  {
                                                                                                "language":  "json"
@@ -418,7 +418,7 @@
                                                   }
                                   },
                                   {
-                                      "name":  "Kategori Güncelle",
+                                      "name":  "Kategori GÃ¼ncelle",
                                       "request":  {
                                                       "method":  "PUT",
                                                       "header":  [
@@ -440,7 +440,7 @@
                                                               },
                                                       "body":  {
                                                                    "mode":  "raw",
-                                                                   "raw":  "{\n  \"id\": 1,\n  \"parentCategoryId\": null,\n  \"name\": \"Kadın Moda \u0026 Giyim\",\n  \"slug\": \"kadin-moda-giyim\"\n}",
+                                                                   "raw":  "{\n  \"id\": 1,\n  \"parentCategoryId\": null,\n  \"name\": \"KadÄ±n Moda \u0026 Giyim\",\n  \"slug\": \"kadin-moda-giyim\"\n}",
                                                                    "options":  {
                                                                                    "raw":  {
                                                                                                "language":  "json"
@@ -477,10 +477,10 @@
                  },
                  {
                      "name":  "04. Markalar (Brands)",
-                     "description":  "Marka yönetimi",
+                     "description":  "Marka yÃ¶netimi (SatÄ±cÄ±/KullanÄ±cÄ± bazlÄ± sahiplik)",
                      "item":  [
                                   {
-                                      "name":  "Tüm Markaları Listele",
+                                      "name":  "TÃ¼m MarkalarÄ± Listele",
                                       "request":  {
                                                       "method":  "GET",
                                                       "header":  [
@@ -503,7 +503,7 @@
                                                   }
                                   },
                                   {
-                                      "name":  "ID\u0027ye Göre Marka Getir",
+                                      "name":  "ID\u0027ye GÃ¶re Marka Getir",
                                       "request":  {
                                                       "method":  "GET",
                                                       "header":  [
@@ -521,6 +521,55 @@
                                                                   "path":  [
                                                                                "api",
                                                                                "brands",
+                                                                               "1"
+                                                                           ]
+                                                              }
+                                                  }
+                                  },
+                                  {
+                                      "name":  "GiriÅŸ Yapan SatÄ±cÄ±nÄ±n MarkalarÄ±nÄ± Listele",
+                                      "request":  {
+                                                      "method":  "GET",
+                                                      "header":  [
+                                                                     {
+                                                                         "key":  "Content-Type",
+                                                                         "type":  "text",
+                                                                         "value":  "application/json"
+                                                                     }
+                                                                 ],
+                                                      "url":  {
+                                                                  "raw":  "{{baseUrl}}/api/brands/my-brands",
+                                                                  "host":  [
+                                                                               "{{baseUrl}}"
+                                                                           ],
+                                                                  "path":  [
+                                                                               "api",
+                                                                               "brands",
+                                                                               "my-brands"
+                                                                           ]
+                                                              }
+                                                  }
+                                  },
+                                  {
+                                      "name":  "KullanÄ±cÄ± ID\u0027sine GÃ¶re MarkalarÄ± Listele",
+                                      "request":  {
+                                                      "method":  "GET",
+                                                      "header":  [
+                                                                     {
+                                                                         "key":  "Content-Type",
+                                                                         "type":  "text",
+                                                                         "value":  "application/json"
+                                                                     }
+                                                                 ],
+                                                      "url":  {
+                                                                  "raw":  "{{baseUrl}}/api/brands/user/1",
+                                                                  "host":  [
+                                                                               "{{baseUrl}}"
+                                                                           ],
+                                                                  "path":  [
+                                                                               "api",
+                                                                               "brands",
+                                                                               "user",
                                                                                "1"
                                                                            ]
                                                               }
@@ -559,7 +608,7 @@
                                                   }
                                   },
                                   {
-                                      "name":  "Marka Güncelle",
+                                      "name":  "Marka GÃ¼ncelle",
                                       "request":  {
                                                       "method":  "PUT",
                                                       "header":  [
@@ -581,7 +630,7 @@
                                                               },
                                                       "body":  {
                                                                    "mode":  "raw",
-                                                                   "raw":  "{\n  \"id\": 1,\n  \"name\": \"TrendyolMilla Exclusive\",\n  \"logoUrl\": \"https://cdn.example.com/brands/trendyolmilla-v2.png\"\n}",
+                                                                   "raw":  "{\n  \"id\": 1,\n  \"userId\": 1,\n  \"name\": \"TrendyolMilla Exclusive\",\n  \"logoUrl\": \"https://cdn.example.com/brands/trendyolmilla-v2.png\"\n}",
                                                                    "options":  {
                                                                                    "raw":  {
                                                                                                "language":  "json"
@@ -617,11 +666,11 @@
                               ]
                  },
                  {
-                     "name":  "05. Ürünler (Products)",
-                     "description":  "Ana ürün yönetimi (Görseller ve Varyantlar dahil)",
+                     "name":  "05. ÃœrÃ¼nler (Products)",
+                     "description":  "Ana Ã¼rÃ¼n yÃ¶netimi (SatÄ±cÄ±/KullanÄ±cÄ± bazlÄ± sahiplik, GÃ¶rseller ve Varyantlar dahil)",
                      "item":  [
                                   {
-                                      "name":  "Tüm Ürünleri Listele",
+                                      "name":  "TÃ¼m ÃœrÃ¼nleri Listele",
                                       "request":  {
                                                       "method":  "GET",
                                                       "header":  [
@@ -644,7 +693,7 @@
                                                   }
                                   },
                                   {
-                                      "name":  "ID\u0027ye Göre Ürün Getir",
+                                      "name":  "ID\u0027ye GÃ¶re ÃœrÃ¼n Getir",
                                       "request":  {
                                                       "method":  "GET",
                                                       "header":  [
@@ -668,7 +717,7 @@
                                                   }
                                   },
                                   {
-                                      "name":  "Kategoriye Göre Ürünleri Listele",
+                                      "name":  "Kategoriye GÃ¶re ÃœrÃ¼nleri Listele",
                                       "request":  {
                                                       "method":  "GET",
                                                       "header":  [
@@ -693,7 +742,56 @@
                                                   }
                                   },
                                   {
-                                      "name":  "Yeni Ürün Ekle (Varyant \u0026 Görseller Dahil)",
+                                      "name":  "GiriÅŸ Yapan SatÄ±cÄ±nÄ±n ÃœrÃ¼nlerini Listele",
+                                      "request":  {
+                                                      "method":  "GET",
+                                                      "header":  [
+                                                                     {
+                                                                         "key":  "Content-Type",
+                                                                         "type":  "text",
+                                                                         "value":  "application/json"
+                                                                     }
+                                                                 ],
+                                                      "url":  {
+                                                                  "raw":  "{{baseUrl}}/api/products/my-products",
+                                                                  "host":  [
+                                                                               "{{baseUrl}}"
+                                                                           ],
+                                                                  "path":  [
+                                                                               "api",
+                                                                               "products",
+                                                                               "my-products"
+                                                                           ]
+                                                              }
+                                                  }
+                                  },
+                                  {
+                                      "name":  "SatÄ±cÄ± ID\u0027sine GÃ¶re ÃœrÃ¼nleri Listele",
+                                      "request":  {
+                                                      "method":  "GET",
+                                                      "header":  [
+                                                                     {
+                                                                         "key":  "Content-Type",
+                                                                         "type":  "text",
+                                                                         "value":  "application/json"
+                                                                     }
+                                                                 ],
+                                                      "url":  {
+                                                                  "raw":  "{{baseUrl}}/api/products/user/1",
+                                                                  "host":  [
+                                                                               "{{baseUrl}}"
+                                                                           ],
+                                                                  "path":  [
+                                                                               "api",
+                                                                               "products",
+                                                                               "user",
+                                                                               "1"
+                                                                           ]
+                                                              }
+                                                  }
+                                  },
+                                  {
+                                      "name":  "Yeni ÃœrÃ¼n Ekle (Varyant \u0026 GÃ¶rseller Dahil)",
                                       "request":  {
                                                       "method":  "POST",
                                                       "header":  [
@@ -715,7 +813,7 @@
                                                               },
                                                       "body":  {
                                                                    "mode":  "raw",
-                                                                   "raw":  "{\n  \"categoryId\": 1,\n  \"brandId\": 1,\n  \"name\": \"Oversize Pamuklu Kadın Elbise\",\n  \"description\": \"%100 Pamuk, rahat kesim, yazlık desenli günlük kadın elbise.\",\n  \"images\": [\n    {\n      \"productId\": 0,\n      \"imageUrl\": \"https://cdn.example.com/products/elbise-front.jpg\",\n      \"displayOrder\": 1\n    },\n    {\n      \"productId\": 0,\n      \"imageUrl\": \"https://cdn.example.com/products/elbise-back.jpg\",\n      \"displayOrder\": 2\n    }\n  ],\n  \"variants\": [\n    {\n      \"productId\": 0,\n      \"storeId\": 1,\n      \"barcode\": \"8680001234561\",\n      \"stockQuantity\": 50,\n      \"price\": 499.99,\n      \"discountPrice\": 399.99,\n      \"color\": \"Mavi\",\n      \"size\": \"M\"\n    },\n    {\n      \"productId\": 0,\n      \"storeId\": 1,\n      \"barcode\": \"8680001234562\",\n      \"stockQuantity\": 30,\n      \"price\": 499.99,\n      \"discountPrice\": 399.99,\n      \"color\": \"Mavi\",\n      \"size\": \"L\"\n    }\n  ]\n}",
+                                                                   "raw":  "{\n  \"categoryId\": 1,\n  \"brandId\": 1,\n  \"name\": \"Oversize Pamuklu KadÄ±n Elbise\",\n  \"description\": \"%100 Pamuk, rahat kesim, yazlÄ±k desenli gÃ¼nlÃ¼k kadÄ±n elbise.\",\n  \"images\": [\n    {\n      \"productId\": 0,\n      \"imageUrl\": \"https://cdn.example.com/products/elbise-front.jpg\",\n      \"displayOrder\": 1\n    },\n    {\n      \"productId\": 0,\n      \"imageUrl\": \"https://cdn.example.com/products/elbise-back.jpg\",\n      \"displayOrder\": 2\n    }\n  ],\n  \"variants\": [\n    {\n      \"productId\": 0,\n      \"storeId\": 1,\n      \"barcode\": \"8680001234561\",\n      \"stockQuantity\": 50,\n      \"price\": 499.99,\n      \"discountPrice\": 399.99,\n      \"color\": \"Mavi\",\n      \"size\": \"M\"\n    },\n    {\n      \"productId\": 0,\n      \"storeId\": 1,\n      \"barcode\": \"8680001234562\",\n      \"stockQuantity\": 30,\n      \"price\": 499.99,\n      \"discountPrice\": 399.99,\n      \"color\": \"Mavi\",\n      \"size\": \"L\"\n    }\n  ]\n}",
                                                                    "options":  {
                                                                                    "raw":  {
                                                                                                "language":  "json"
@@ -725,7 +823,7 @@
                                                   }
                                   },
                                   {
-                                      "name":  "Ürün Bilgilerini Güncelle",
+                                      "name":  "ÃœrÃ¼n Bilgilerini GÃ¼ncelle",
                                       "request":  {
                                                       "method":  "PUT",
                                                       "header":  [
@@ -747,7 +845,7 @@
                                                               },
                                                       "body":  {
                                                                    "mode":  "raw",
-                                                                   "raw":  "{\n  \"id\": 1,\n  \"categoryId\": 1,\n  \"brandId\": 1,\n  \"name\": \"Oversize Pamuklu Kadın Elbise (Güncellendi)\",\n  \"description\": \"Yeni sezon %100 Pamuk, nefes alan kumaş, rahat kesim.\",\n  \"images\": [\n    {\n      \"id\": 1,\n      \"productId\": 1,\n      \"imageUrl\": \"https://cdn.example.com/products/elbise-front-v2.jpg\",\n      \"displayOrder\": 1\n    }\n  ],\n  \"variants\": [\n    {\n      \"id\": 1,\n      \"productId\": 1,\n      \"storeId\": 1,\n      \"barcode\": \"8680001234561\",\n      \"stockQuantity\": 45,\n      \"price\": 549.99,\n      \"discountPrice\": 449.99,\n      \"color\": \"Mavi\",\n      \"size\": \"M\"\n    }\n  ]\n}",
+                                                                   "raw":  "{\n  \"id\": 1,\n  \"userId\": 1,\n  \"categoryId\": 1,\n  \"brandId\": 1,\n  \"name\": \"Oversize Pamuklu KadÄ±n Elbise (GÃ¼ncellendi)\",\n  \"description\": \"Yeni sezon %100 Pamuk, nefes alan kumaÅŸ, rahat kesim.\",\n  \"images\": [\n    {\n      \"id\": 1,\n      \"productId\": 1,\n      \"imageUrl\": \"https://cdn.example.com/products/elbise-front-v2.jpg\",\n      \"displayOrder\": 1\n    }\n  ],\n  \"variants\": [\n    {\n      \"id\": 1,\n      \"productId\": 1,\n      \"storeId\": 1,\n      \"barcode\": \"8680001234561\",\n      \"stockQuantity\": 45,\n      \"price\": 549.99,\n      \"discountPrice\": 449.99,\n      \"color\": \"Mavi\",\n      \"size\": \"M\"\n    }\n  ]\n}",
                                                                    "options":  {
                                                                                    "raw":  {
                                                                                                "language":  "json"
@@ -757,7 +855,7 @@
                                                   }
                                   },
                                   {
-                                      "name":  "Ürün Sil",
+                                      "name":  "ÃœrÃ¼n Sil",
                                       "request":  {
                                                       "method":  "DELETE",
                                                       "header":  [
@@ -783,11 +881,11 @@
                               ]
                  },
                  {
-                     "name":  "06. Ürün Varyantları (Product Variants / SKU)",
-                     "description":  "Renk, beden, barkod, stok ve satıcı bazlı fiyatlandırma (SKU)",
+                     "name":  "06. ÃœrÃ¼n VaryantlarÄ± (Product Variants / SKU)",
+                     "description":  "Renk, beden, barkod, stok ve satÄ±cÄ± bazlÄ± fiyatlandÄ±rma (SKU)",
                      "item":  [
                                   {
-                                      "name":  "Tüm Varyantları Listele",
+                                      "name":  "TÃ¼m VaryantlarÄ± Listele",
                                       "request":  {
                                                       "method":  "GET",
                                                       "header":  [
@@ -810,7 +908,7 @@
                                                   }
                                   },
                                   {
-                                      "name":  "ID\u0027ye Göre Varyant Getir",
+                                      "name":  "ID\u0027ye GÃ¶re Varyant Getir",
                                       "request":  {
                                                       "method":  "GET",
                                                       "header":  [
@@ -866,7 +964,7 @@
                                                   }
                                   },
                                   {
-                                      "name":  "Varyant Güncelle",
+                                      "name":  "Varyant GÃ¼ncelle",
                                       "request":  {
                                                       "method":  "PUT",
                                                       "header":  [
@@ -924,11 +1022,11 @@
                               ]
                  },
                  {
-                     "name":  "07. Ürün Görselleri (Product Images)",
-                     "description":  "Ürün fotoğraf ve galeri yönetimi",
+                     "name":  "07. ÃœrÃ¼n GÃ¶rselleri (Product Images)",
+                     "description":  "ÃœrÃ¼n fotoÄŸraf ve galeri yÃ¶netimi",
                      "item":  [
                                   {
-                                      "name":  "Tüm Görselleri Listele",
+                                      "name":  "TÃ¼m GÃ¶rselleri Listele",
                                       "request":  {
                                                       "method":  "GET",
                                                       "header":  [
@@ -951,7 +1049,7 @@
                                                   }
                                   },
                                   {
-                                      "name":  "ID\u0027ye Göre Görsel Getir",
+                                      "name":  "ID\u0027ye GÃ¶re GÃ¶rsel Getir",
                                       "request":  {
                                                       "method":  "GET",
                                                       "header":  [
@@ -975,7 +1073,7 @@
                                                   }
                                   },
                                   {
-                                      "name":  "Yeni Görsel Ekle",
+                                      "name":  "Yeni GÃ¶rsel Ekle",
                                       "request":  {
                                                       "method":  "POST",
                                                       "header":  [
@@ -1007,7 +1105,7 @@
                                                   }
                                   },
                                   {
-                                      "name":  "Görsel Güncelle",
+                                      "name":  "GÃ¶rsel GÃ¼ncelle",
                                       "request":  {
                                                       "method":  "PUT",
                                                       "header":  [
@@ -1039,7 +1137,7 @@
                                                   }
                                   },
                                   {
-                                      "name":  "Görsel Sil",
+                                      "name":  "GÃ¶rsel Sil",
                                       "request":  {
                                                       "method":  "DELETE",
                                                       "header":  [
@@ -1066,10 +1164,10 @@
                  },
                  {
                      "name":  "08. Sepet (Carts)",
-                     "description":  "Kullanıcı sepet başlığı işlemleri",
+                     "description":  "KullanÄ±cÄ± sepet baÅŸlÄ±ÄŸÄ± iÅŸlemleri",
                      "item":  [
                                   {
-                                      "name":  "Tüm Sepetleri Listele",
+                                      "name":  "TÃ¼m Sepetleri Listele",
                                       "request":  {
                                                       "method":  "GET",
                                                       "header":  [
@@ -1092,7 +1190,7 @@
                                                   }
                                   },
                                   {
-                                      "name":  "ID\u0027ye Göre Sepet Getir",
+                                      "name":  "ID\u0027ye GÃ¶re Sepet Getir",
                                       "request":  {
                                                       "method":  "GET",
                                                       "header":  [
@@ -1116,7 +1214,7 @@
                                                   }
                                   },
                                   {
-                                      "name":  "Sepet Oluştur / Ürün Ekle",
+                                      "name":  "Sepet OluÅŸtur / ÃœrÃ¼n Ekle",
                                       "request":  {
                                                       "method":  "POST",
                                                       "header":  [
@@ -1148,7 +1246,7 @@
                                                   }
                                   },
                                   {
-                                      "name":  "Sepet Güncelle",
+                                      "name":  "Sepet GÃ¼ncelle",
                                       "request":  {
                                                       "method":  "PUT",
                                                       "header":  [
@@ -1207,10 +1305,10 @@
                  },
                  {
                      "name":  "09. Sepet Kalemleri (Cart Items)",
-                     "description":  "Sepetteki ürün varyantları ve adet yönetimi",
+                     "description":  "Sepetteki Ã¼rÃ¼n varyantlarÄ± ve adet yÃ¶netimi",
                      "item":  [
                                   {
-                                      "name":  "Tüm Sepet Kalemlerini Listele",
+                                      "name":  "TÃ¼m Sepet Kalemlerini Listele",
                                       "request":  {
                                                       "method":  "GET",
                                                       "header":  [
@@ -1233,7 +1331,7 @@
                                                   }
                                   },
                                   {
-                                      "name":  "ID\u0027ye Göre Sepet Kalemi Getir",
+                                      "name":  "ID\u0027ye GÃ¶re Sepet Kalemi Getir",
                                       "request":  {
                                                       "method":  "GET",
                                                       "header":  [
@@ -1289,7 +1387,7 @@
                                                   }
                                   },
                                   {
-                                      "name":  "Sepet Kalemi Adet Güncelle",
+                                      "name":  "Sepet Kalemi Adet GÃ¼ncelle",
                                       "request":  {
                                                       "method":  "PUT",
                                                       "header":  [
@@ -1347,11 +1445,11 @@
                               ]
                  },
                  {
-                     "name":  "10. Siparişler (Orders)",
-                     "description":  "Müşteri ana sipariş oluşturma ve takip",
+                     "name":  "10. SipariÅŸler (Orders)",
+                     "description":  "MÃ¼ÅŸteri ana sipariÅŸ oluÅŸturma ve takip",
                      "item":  [
                                   {
-                                      "name":  "Tüm Siparişleri Listele",
+                                      "name":  "TÃ¼m SipariÅŸleri Listele",
                                       "request":  {
                                                       "method":  "GET",
                                                       "header":  [
@@ -1374,7 +1472,7 @@
                                                   }
                                   },
                                   {
-                                      "name":  "ID\u0027ye Göre Sipariş Getir",
+                                      "name":  "ID\u0027ye GÃ¶re SipariÅŸ Getir",
                                       "request":  {
                                                       "method":  "GET",
                                                       "header":  [
@@ -1398,7 +1496,7 @@
                                                   }
                                   },
                                   {
-                                      "name":  "Yeni Sipariş Oluştur",
+                                      "name":  "Yeni SipariÅŸ OluÅŸtur",
                                       "request":  {
                                                       "method":  "POST",
                                                       "header":  [
@@ -1430,7 +1528,7 @@
                                                   }
                                   },
                                   {
-                                      "name":  "Sipariş Güncelle",
+                                      "name":  "SipariÅŸ GÃ¼ncelle",
                                       "request":  {
                                                       "method":  "PUT",
                                                       "header":  [
@@ -1462,7 +1560,7 @@
                                                   }
                                   },
                                   {
-                                      "name":  "Sipariş Sil",
+                                      "name":  "SipariÅŸ Sil",
                                       "request":  {
                                                       "method":  "DELETE",
                                                       "header":  [
@@ -1488,11 +1586,11 @@
                               ]
                  },
                  {
-                     "name":  "11. Alt Siparişler (SubOrders - Satıcı Dağıtımı)",
-                     "description":  "Multi-vendor siparişin satıcı bazlı alt parçaları ve kargo takibi",
+                     "name":  "11. Alt SipariÅŸler (SubOrders - SatÄ±cÄ± DaÄŸÄ±tÄ±mÄ±)",
+                     "description":  "Multi-vendor sipariÅŸin satÄ±cÄ± bazlÄ± alt parÃ§alarÄ± ve kargo takibi",
                      "item":  [
                                   {
-                                      "name":  "Tüm Alt Siparişleri Listele",
+                                      "name":  "TÃ¼m Alt SipariÅŸleri Listele",
                                       "request":  {
                                                       "method":  "GET",
                                                       "header":  [
@@ -1515,7 +1613,7 @@
                                                   }
                                   },
                                   {
-                                      "name":  "ID\u0027ye Göre Alt Sipariş Getir",
+                                      "name":  "ID\u0027ye GÃ¶re Alt SipariÅŸ Getir",
                                       "request":  {
                                                       "method":  "GET",
                                                       "header":  [
@@ -1539,7 +1637,7 @@
                                                   }
                                   },
                                   {
-                                      "name":  "Alt Sipariş Oluştur",
+                                      "name":  "Alt SipariÅŸ OluÅŸtur",
                                       "request":  {
                                                       "method":  "POST",
                                                       "header":  [
@@ -1561,7 +1659,7 @@
                                                               },
                                                       "body":  {
                                                                    "mode":  "raw",
-                                                                   "raw":  "{\n  \"orderId\": 1,\n  \"storeId\": 1,\n  \"subOrderNumber\": \"SUB-20260924-0001-S1\",\n  \"status\": \"Preparing\",\n  \"cargoTrackingNumber\": \"YK123456789TR\",\n  \"cargoCompany\": \"Yurtiçi Kargo\"\n}",
+                                                                   "raw":  "{\n  \"orderId\": 1,\n  \"storeId\": 1,\n  \"subOrderNumber\": \"SUB-20260924-0001-S1\",\n  \"status\": \"Preparing\",\n  \"cargoTrackingNumber\": \"YK123456789TR\",\n  \"cargoCompany\": \"YurtiÃ§i Kargo\"\n}",
                                                                    "options":  {
                                                                                    "raw":  {
                                                                                                "language":  "json"
@@ -1571,7 +1669,7 @@
                                                   }
                                   },
                                   {
-                                      "name":  "Alt Sipariş Güncelle (Kargo/Durum)",
+                                      "name":  "Alt SipariÅŸ GÃ¼ncelle (Kargo/Durum)",
                                       "request":  {
                                                       "method":  "PUT",
                                                       "header":  [
@@ -1593,7 +1691,7 @@
                                                               },
                                                       "body":  {
                                                                    "mode":  "raw",
-                                                                   "raw":  "{\n  \"id\": 1,\n  \"orderId\": 1,\n  \"storeId\": 1,\n  \"subOrderNumber\": \"SUB-20260924-0001-S1\",\n  \"status\": \"Shipped\",\n  \"cargoTrackingNumber\": \"YK123456789TR\",\n  \"cargoCompany\": \"Yurtiçi Kargo\"\n}",
+                                                                   "raw":  "{\n  \"id\": 1,\n  \"orderId\": 1,\n  \"storeId\": 1,\n  \"subOrderNumber\": \"SUB-20260924-0001-S1\",\n  \"status\": \"Shipped\",\n  \"cargoTrackingNumber\": \"YK123456789TR\",\n  \"cargoCompany\": \"YurtiÃ§i Kargo\"\n}",
                                                                    "options":  {
                                                                                    "raw":  {
                                                                                                "language":  "json"
@@ -1603,7 +1701,7 @@
                                                   }
                                   },
                                   {
-                                      "name":  "Alt Sipariş Sil",
+                                      "name":  "Alt SipariÅŸ Sil",
                                       "request":  {
                                                       "method":  "DELETE",
                                                       "header":  [
@@ -1629,11 +1727,11 @@
                               ]
                  },
                  {
-                     "name":  "12. Sipariş Kalemleri (Order Items)",
-                     "description":  "Alt siparişe ait ürün varyantları, adet, fiyat ve komisyon",
+                     "name":  "12. SipariÅŸ Kalemleri (Order Items)",
+                     "description":  "Alt sipariÅŸe ait Ã¼rÃ¼n varyantlarÄ±, adet, fiyat ve komisyon",
                      "item":  [
                                   {
-                                      "name":  "Tüm Sipariş Kalemlerini Listele",
+                                      "name":  "TÃ¼m SipariÅŸ Kalemlerini Listele",
                                       "request":  {
                                                       "method":  "GET",
                                                       "header":  [
@@ -1656,7 +1754,7 @@
                                                   }
                                   },
                                   {
-                                      "name":  "ID\u0027ye Göre Sipariş Kalemi Getir",
+                                      "name":  "ID\u0027ye GÃ¶re SipariÅŸ Kalemi Getir",
                                       "request":  {
                                                       "method":  "GET",
                                                       "header":  [
@@ -1680,7 +1778,7 @@
                                                   }
                                   },
                                   {
-                                      "name":  "Sipariş Kalemi Ekle",
+                                      "name":  "SipariÅŸ Kalemi Ekle",
                                       "request":  {
                                                       "method":  "POST",
                                                       "header":  [
@@ -1712,7 +1810,7 @@
                                                   }
                                   },
                                   {
-                                      "name":  "Sipariş Kalemi Güncelle",
+                                      "name":  "SipariÅŸ Kalemi GÃ¼ncelle",
                                       "request":  {
                                                       "method":  "PUT",
                                                       "header":  [
@@ -1744,7 +1842,7 @@
                                                   }
                                   },
                                   {
-                                      "name":  "Sipariş Kalemi Sil",
+                                      "name":  "SipariÅŸ Kalemi Sil",
                                       "request":  {
                                                       "method":  "DELETE",
                                                       "header":  [
@@ -1771,10 +1869,10 @@
                  },
                  {
                      "name":  "13. Adresler (Addresses)",
-                     "description":  "Teslimat ve fatura adresleri yönetimi",
+                     "description":  "Teslimat ve fatura adresleri yÃ¶netimi",
                      "item":  [
                                   {
-                                      "name":  "Tüm Adresleri Listele",
+                                      "name":  "TÃ¼m Adresleri Listele",
                                       "request":  {
                                                       "method":  "GET",
                                                       "header":  [
@@ -1797,7 +1895,7 @@
                                                   }
                                   },
                                   {
-                                      "name":  "ID\u0027ye Göre Adres Getir",
+                                      "name":  "ID\u0027ye GÃ¶re Adres Getir",
                                       "request":  {
                                                       "method":  "GET",
                                                       "header":  [
@@ -1843,7 +1941,7 @@
                                                               },
                                                       "body":  {
                                                                    "mode":  "raw",
-                                                                   "raw":  "{\n  \"title\": \"Ev Adresim\",\n  \"city\": \"İstanbul\",\n  \"district\": \"Kadıköy\",\n  \"addressDetail\": \"Caferağa Mah. Moda Cad. No:45 Daire:6\",\n  \"zipCode\": \"34710\"\n}",
+                                                                   "raw":  "{\n  \"title\": \"Ev Adresim\",\n  \"city\": \"Ä°stanbul\",\n  \"district\": \"KadÄ±kÃ¶y\",\n  \"addressDetail\": \"CaferaÄŸa Mah. Moda Cad. No:45 Daire:6\",\n  \"zipCode\": \"34710\"\n}",
                                                                    "options":  {
                                                                                    "raw":  {
                                                                                                "language":  "json"
@@ -1853,7 +1951,7 @@
                                                   }
                                   },
                                   {
-                                      "name":  "Adres Güncelle",
+                                      "name":  "Adres GÃ¼ncelle",
                                       "request":  {
                                                       "method":  "PUT",
                                                       "header":  [
@@ -1875,7 +1973,7 @@
                                                               },
                                                       "body":  {
                                                                    "mode":  "raw",
-                                                                   "raw":  "{\n  \"id\": 1,\n  \"userId\": 1,\n  \"title\": \"Ev Adresi (Güncel)\",\n  \"city\": \"İstanbul\",\n  \"district\": \"Kadıköy\",\n  \"addressDetail\": \"Caferağa Mah. Moda Cad. No:45 Daire:8\",\n  \"zipCode\": \"34710\"\n}",
+                                                                   "raw":  "{\n  \"id\": 1,\n  \"userId\": 1,\n  \"title\": \"Ev Adresi (GÃ¼ncel)\",\n  \"city\": \"Ä°stanbul\",\n  \"district\": \"KadÄ±kÃ¶y\",\n  \"addressDetail\": \"CaferaÄŸa Mah. Moda Cad. No:45 Daire:8\",\n  \"zipCode\": \"34710\"\n}",
                                                                    "options":  {
                                                                                    "raw":  {
                                                                                                "language":  "json"
@@ -1912,10 +2010,10 @@
                  },
                  {
                      "name":  "14. Favoriler (Favorites)",
-                     "description":  "Kullanıcı favori ürün takibi",
+                     "description":  "KullanÄ±cÄ± favori Ã¼rÃ¼n takibi",
                      "item":  [
                                   {
-                                      "name":  "Tüm Favorileri Listele",
+                                      "name":  "TÃ¼m Favorileri Listele",
                                       "request":  {
                                                       "method":  "GET",
                                                       "header":  [
@@ -1938,7 +2036,7 @@
                                                   }
                                   },
                                   {
-                                      "name":  "ID\u0027ye Göre Favori Getir",
+                                      "name":  "ID\u0027ye GÃ¶re Favori Getir",
                                       "request":  {
                                                       "method":  "GET",
                                                       "header":  [
@@ -1994,7 +2092,7 @@
                                                   }
                                   },
                                   {
-                                      "name":  "Favori Güncelle",
+                                      "name":  "Favori GÃ¼ncelle",
                                       "request":  {
                                                       "method":  "PUT",
                                                       "header":  [
@@ -2026,7 +2124,7 @@
                                                   }
                                   },
                                   {
-                                      "name":  "Favorilerden Kaldır",
+                                      "name":  "Favorilerden KaldÄ±r",
                                       "request":  {
                                                       "method":  "DELETE",
                                                       "header":  [
@@ -2052,11 +2150,11 @@
                               ]
                  },
                  {
-                     "name":  "15. Değerlendirmeler \u0026 Yorumlar (Product Reviews)",
-                     "description":  "Ürün puanlama (1-5 yıldız) ve kullanıcı yorumları",
+                     "name":  "15. DeÄŸerlendirmeler \u0026 Yorumlar (Product Reviews)",
+                     "description":  "ÃœrÃ¼n puanlama (1-5 yÄ±ldÄ±z) ve kullanÄ±cÄ± yorumlarÄ±",
                      "item":  [
                                   {
-                                      "name":  "Tüm Değerlendirmeleri Listele",
+                                      "name":  "TÃ¼m DeÄŸerlendirmeleri Listele",
                                       "request":  {
                                                       "method":  "GET",
                                                       "header":  [
@@ -2079,7 +2177,7 @@
                                                   }
                                   },
                                   {
-                                      "name":  "ID\u0027ye Göre Değerlendirme Getir",
+                                      "name":  "ID\u0027ye GÃ¶re DeÄŸerlendirme Getir",
                                       "request":  {
                                                       "method":  "GET",
                                                       "header":  [
@@ -2103,7 +2201,7 @@
                                                   }
                                   },
                                   {
-                                      "name":  "Ürüne Yorum / Puan Ekle",
+                                      "name":  "ÃœrÃ¼ne Yorum / Puan Ekle",
                                       "request":  {
                                                       "method":  "POST",
                                                       "header":  [
@@ -2125,7 +2223,7 @@
                                                               },
                                                       "body":  {
                                                                    "mode":  "raw",
-                                                                   "raw":  "{\n  \"productId\": 1,\n  \"storeId\": 1,\n  \"rating\": 5,\n  \"comment\": \"Kumaşı harika, tam bedenime uydu. Kargo da çok hızlıydı teşekkürler!\"\n}",
+                                                                   "raw":  "{\n  \"productId\": 1,\n  \"storeId\": 1,\n  \"rating\": 5,\n  \"comment\": \"KumaÅŸÄ± harika, tam bedenime uydu. Kargo da Ã§ok hÄ±zlÄ±ydÄ± teÅŸekkÃ¼rler!\"\n}",
                                                                    "options":  {
                                                                                    "raw":  {
                                                                                                "language":  "json"
@@ -2135,7 +2233,7 @@
                                                   }
                                   },
                                   {
-                                      "name":  "Değerlendirme Güncelle",
+                                      "name":  "DeÄŸerlendirme GÃ¼ncelle",
                                       "request":  {
                                                       "method":  "PUT",
                                                       "header":  [
@@ -2157,7 +2255,7 @@
                                                               },
                                                       "body":  {
                                                                    "mode":  "raw",
-                                                                   "raw":  "{\n  \"productId\": 1,\n  \"storeId\": 1,\n  \"rating\": 4,\n  \"comment\": \"Rengi fotoğraftakinden bir ton açık geldi ama kalitesi çok güzel.\"\n}",
+                                                                   "raw":  "{\n  \"productId\": 1,\n  \"storeId\": 1,\n  \"rating\": 4,\n  \"comment\": \"Rengi fotoÄŸraftakinden bir ton aÃ§Ä±k geldi ama kalitesi Ã§ok gÃ¼zel.\"\n}",
                                                                    "options":  {
                                                                                    "raw":  {
                                                                                                "language":  "json"
@@ -2167,7 +2265,7 @@
                                                   }
                                   },
                                   {
-                                      "name":  "Değerlendirme Sil",
+                                      "name":  "DeÄŸerlendirme Sil",
                                       "request":  {
                                                       "method":  "DELETE",
                                                       "header":  [
@@ -2193,11 +2291,11 @@
                               ]
                  },
                  {
-                     "name":  "16. Ürün Soru-Cevap (Product Questions)",
-                     "description":  "Müşterinin satıcıya soru sorması ve satıcının yanıtlaması",
+                     "name":  "16. ÃœrÃ¼n Soru-Cevap (Product Questions)",
+                     "description":  "MÃ¼ÅŸterinin satÄ±cÄ±ya soru sormasÄ± ve satÄ±cÄ±nÄ±n yanÄ±tlamasÄ±",
                      "item":  [
                                   {
-                                      "name":  "Tüm Soruları Listele",
+                                      "name":  "TÃ¼m SorularÄ± Listele",
                                       "request":  {
                                                       "method":  "GET",
                                                       "header":  [
@@ -2220,7 +2318,7 @@
                                                   }
                                   },
                                   {
-                                      "name":  "ID\u0027ye Göre Soru Getir",
+                                      "name":  "ID\u0027ye GÃ¶re Soru Getir",
                                       "request":  {
                                                       "method":  "GET",
                                                       "header":  [
@@ -2244,7 +2342,7 @@
                                                   }
                                   },
                                   {
-                                      "name":  "Satıcıya Soru Sor",
+                                      "name":  "SatÄ±cÄ±ya Soru Sor",
                                       "request":  {
                                                       "method":  "POST",
                                                       "header":  [
@@ -2266,7 +2364,7 @@
                                                               },
                                                       "body":  {
                                                                    "mode":  "raw",
-                                                                   "raw":  "{\n  \"productId\": 1,\n  \"storeId\": 1,\n  \"questionText\": \"Merhaba, 1.70 boy 60 kilo için hangi bedeni önerirsiniz?\"\n}",
+                                                                   "raw":  "{\n  \"productId\": 1,\n  \"storeId\": 1,\n  \"questionText\": \"Merhaba, 1.70 boy 60 kilo iÃ§in hangi bedeni Ã¶nerirsiniz?\"\n}",
                                                                    "options":  {
                                                                                    "raw":  {
                                                                                                "language":  "json"
@@ -2276,7 +2374,7 @@
                                                   }
                                   },
                                   {
-                                      "name":  "Soruyu Yanıtla / Güncelle",
+                                      "name":  "Soruyu YanÄ±tla / GÃ¼ncelle",
                                       "request":  {
                                                       "method":  "PUT",
                                                       "header":  [
@@ -2298,7 +2396,7 @@
                                                               },
                                                       "body":  {
                                                                    "mode":  "raw",
-                                                                   "raw":  "{\n  \"id\": 1,\n  \"productId\": 1,\n  \"userId\": 1,\n  \"storeId\": 1,\n  \"questionText\": \"Merhaba, 1.70 boy 60 kilo için hangi bedeni önerirsiniz?\",\n  \"answerText\": \"Merhaba, vermiş olduğunuz ölçülere göre M beden tam olacaktır efendim.\"\n}",
+                                                                   "raw":  "{\n  \"id\": 1,\n  \"productId\": 1,\n  \"userId\": 1,\n  \"storeId\": 1,\n  \"questionText\": \"Merhaba, 1.70 boy 60 kilo iÃ§in hangi bedeni Ã¶nerirsiniz?\",\n  \"answerText\": \"Merhaba, vermiÅŸ olduÄŸunuz Ã¶lÃ§Ã¼lere gÃ¶re M beden tam olacaktÄ±r efendim.\"\n}",
                                                                    "options":  {
                                                                                    "raw":  {
                                                                                                "language":  "json"
@@ -2335,10 +2433,10 @@
                  },
                  {
                      "name":  "17. Sistem Yetkileri (Claims)",
-                     "description":  "Operasyonel rol yetkileri tanımlama",
+                     "description":  "Operasyonel rol yetkileri tanÄ±mlama",
                      "item":  [
                                   {
-                                      "name":  "Tüm Yetkileri Listele",
+                                      "name":  "TÃ¼m Yetkileri Listele",
                                       "request":  {
                                                       "method":  "GET",
                                                       "header":  [
@@ -2361,7 +2459,7 @@
                                                   }
                                   },
                                   {
-                                      "name":  "ID\u0027ye Göre Yetki Getir",
+                                      "name":  "ID\u0027ye GÃ¶re Yetki Getir",
                                       "request":  {
                                                       "method":  "GET",
                                                       "header":  [
@@ -2385,7 +2483,7 @@
                                                   }
                                   },
                                   {
-                                      "name":  "Yeni Yetki Tanımla",
+                                      "name":  "Yeni Yetki TanÄ±mla",
                                       "request":  {
                                                       "method":  "POST",
                                                       "header":  [
@@ -2417,7 +2515,7 @@
                                                   }
                                   },
                                   {
-                                      "name":  "Yetki Güncelle",
+                                      "name":  "Yetki GÃ¼ncelle",
                                       "request":  {
                                                       "method":  "PUT",
                                                       "header":  [
@@ -2475,11 +2573,11 @@
                               ]
                  },
                  {
-                     "name":  "18. Kullanıcı Rol Yetkileri (User Operation Claims)",
-                     "description":  "Kullanıcılara claim yetkisi atama",
+                     "name":  "18. KullanÄ±cÄ± Rol Yetkileri (User Operation Claims)",
+                     "description":  "KullanÄ±cÄ±lara claim yetkisi atama",
                      "item":  [
                                   {
-                                      "name":  "Tüm Kullanıcı Yetkilerini Listele",
+                                      "name":  "TÃ¼m KullanÄ±cÄ± Yetkilerini Listele",
                                       "request":  {
                                                       "method":  "GET",
                                                       "header":  [
@@ -2502,7 +2600,7 @@
                                                   }
                                   },
                                   {
-                                      "name":  "ID\u0027ye Göre Kullanıcı Yetkisi Getir",
+                                      "name":  "ID\u0027ye GÃ¶re KullanÄ±cÄ± Yetkisi Getir",
                                       "request":  {
                                                       "method":  "GET",
                                                       "header":  [
@@ -2526,7 +2624,7 @@
                                                   }
                                   },
                                   {
-                                      "name":  "Kullanıcıya Yetki Ata",
+                                      "name":  "KullanÄ±cÄ±ya Yetki Ata",
                                       "request":  {
                                                       "method":  "POST",
                                                       "header":  [
@@ -2558,7 +2656,7 @@
                                                   }
                                   },
                                   {
-                                      "name":  "Kullanıcı Yetkisi Güncelle",
+                                      "name":  "KullanÄ±cÄ± Yetkisi GÃ¼ncelle",
                                       "request":  {
                                                       "method":  "PUT",
                                                       "header":  [
@@ -2590,7 +2688,7 @@
                                                   }
                                   },
                                   {
-                                      "name":  "Kullanıcıdan Yetki Kaldır",
+                                      "name":  "KullanÄ±cÄ±dan Yetki KaldÄ±r",
                                       "request":  {
                                                       "method":  "DELETE",
                                                       "header":  [

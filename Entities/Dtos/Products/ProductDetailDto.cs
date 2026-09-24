@@ -6,6 +6,7 @@ namespace Entities.Dtos.Products
     public class ProductDetailDto
     {
         public int Id { get; set; }
+        public int UserId { get; set; }
         public int CategoryId { get; set; }
         public string CategoryName { get; set; } = string.Empty;
         public int BrandId { get; set; }
