@@ -2,6 +2,9 @@ using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using Business.DependencyResolvers.Autofac;
 using Business.DependencyResolvers.AutoMapper;
+using Core.DependencyResolvers;
+using Core.Extensions;
+using Core.Utilities.IoC;
 using Core.Utilities.Security.Encyption;
 using Core.Utilities.Security.Jwt;
 using DataAccess.Concrete.EntityFramework.Contexts;
@@ -10,9 +13,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi;
 
-
 var builder = WebApplication.CreateBuilder(args);
 
+// Autofac Entegrasyonu
 builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory());
 builder.Host.ConfigureContainer<ContainerBuilder>(containerBuilder =>
 {
@@ -21,70 +24,75 @@ builder.Host.ConfigureContainer<ContainerBuilder>(containerBuilder =>
 
 builder.Services.AddControllers();
 
+builder.Services.AddDependencyResolvers(new ICoreModule[] {
+    new CoreModule()
+});
+
 builder.Services.AddDbContext<ECommerceDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("PostgreSQL")));
 
+// TokenOptions Ayarları
 var tokenOptions = builder.Configuration.GetSection("TokenOptions").Get<TokenOptions>()
     ?? throw new InvalidOperationException("TokenOptions appsettings.json içerisinde bulunamadı.");
-builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-    .AddJwtBearer(options =>
+
+// JWT Authentication Yapılandırması
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+})
+.AddJwtBearer(options =>
+{
+    options.MapInboundClaims = false; // Claim isimlerinin dönüştürülmesini engeller
+
+    options.TokenValidationParameters = new TokenValidationParameters
     {
-        options.TokenValidationParameters = new TokenValidationParameters
-        {
-            ValidateIssuer = true,
-            ValidateAudience = true,
-            ValidateLifetime = true,
-            ValidIssuer = tokenOptions.Issuer,
-            ValidAudience = tokenOptions.Audience,
-            ValidateIssuerSigningKey = true,
-            IssuerSigningKey = SecurityKeyHelper.CreateSecurityKey(tokenOptions.SecurityKey)
-        };
-    });
+        ValidateIssuer = true,
+        ValidateAudience = true,
+        ValidateLifetime = true,
+        ValidateIssuerSigningKey = true,
+
+        ValidIssuer = tokenOptions.Issuer,
+        ValidAudience = tokenOptions.Audience,
+        IssuerSigningKey = SecurityKeyHelper.CreateSecurityKey(tokenOptions.SecurityKey),
+
+       
+        ClockSkew = TimeSpan.FromMinutes(5),
+
+        RoleClaimType = "role"
+    };
+});
 
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAll",
-        builder => builder
+        policy => policy
             .AllowAnyOrigin()
             .AllowAnyMethod()
             .AllowAnyHeader());
 });
+
 builder.Services.AddAutoMapper(cfg =>
 {
     cfg.AddMaps(typeof(ProductProfile).Assembly);
-    cfg.AddMaps(typeof(CategoryProfile).Assembly);
-    cfg.AddMaps(typeof(AddressProfile).Assembly);
-    cfg.AddMaps(typeof(BrandProfile).Assembly);
-    cfg.AddMaps(typeof(CartItemProfile).Assembly);
-    cfg.AddMaps(typeof(CartProfile).Assembly);
-    cfg.AddMaps(typeof(CategoryProfile).Assembly);
-    cfg.AddMaps(typeof(FavoriteProfile).Assembly);
-    cfg.AddMaps(typeof(OperationClaimProfile).Assembly);
-    cfg.AddMaps(typeof(OrderItemProfile).Assembly);
-    cfg.AddMaps(typeof(OrderProfile).Assembly);
-    cfg.AddMaps(typeof(ProductProfile).Assembly);
-    cfg.AddMaps(typeof(ProductQuestionProfile).Assembly);
-    cfg.AddMaps(typeof(ProductReviewProfile).Assembly);
-    cfg.AddMaps(typeof(StoreProfile).Assembly);
-    cfg.AddMaps(typeof(SubOrderProfile).Assembly);
-    cfg.AddMaps(typeof(UserOperationClaimProfile).Assembly);
-    cfg.AddMaps(typeof(UserProfile).Assembly);
-
-
 });
+
 builder.Services.AddEndpointsApiExplorer();
+
 builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new OpenApiInfo { Title = "E-Commerce API", Version = "v1" });
 
-    
+    c.CustomSchemaIds(type => type.FullName);
+
     c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
     {
         Name = "Authorization",
         Description = "JWT Authorization header using the Bearer scheme. Örnek: 'Bearer {token}'",
         In = ParameterLocation.Header,
         Type = SecuritySchemeType.ApiKey,
-        Scheme = "Bearer"
+        Scheme = "Bearer",
+        BearerFormat = "JWT"
     });
 
     c.AddSecurityRequirement(doc => new OpenApiSecurityRequirement
@@ -95,6 +103,7 @@ builder.Services.AddSwaggerGen(c =>
         }
     });
 });
+
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
@@ -105,10 +114,17 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+// CORS en üstte olmalı
 app.UseCors("AllowAll");
 
+// 1. Önce Routing
+app.UseRouting();
+
+// 2. Sonra Authentication (Kimlik Doğrulama)
 app.UseAuthentication();
-app.UseAuthorization(); 
+
+// 3. En son Authorization (Yetkilendirme)
+app.UseAuthorization();
 
 app.MapControllers();
 

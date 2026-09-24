@@ -18,7 +18,7 @@ public class ECommerceDbContext : DbContext
     {
         if (!optionsBuilder.IsConfigured)
         {
-            optionsBuilder.UseNpgsql("Host=localhost;Database=e_commerce_db;Username=postgres;Password=1234");
+            optionsBuilder.UseNpgsql("Host=localhost;Database=e_commerce_db;Username=postgres;Password=1234;Client Encoding=UTF8;");
         }
     }
 

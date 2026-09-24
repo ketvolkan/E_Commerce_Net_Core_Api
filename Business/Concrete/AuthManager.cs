@@ -1,15 +1,16 @@
 ﻿namespace Business.Concrete;
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using Business.Abstract;
+using Business.Constants;
 using Core.Entities.Concrete;
 using Core.Utilities.Results;
 using Core.Utilities.Security.Hashing;
 using Core.Utilities.Security.Jwt;
-using Business.Constants;
+using Entities.Concrete;
 using Entities.DTOs;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 public class AuthManager : IAuthService
 {
@@ -56,6 +57,7 @@ public class AuthManager : IAuthService
     {
         var allClaims = new List<string>
         {
+            "Admin",
             "product.add","product.update","product.delete","product.getall","product.getbyid",
             "category.add","category.update","category.delete","category.getall",
             "brand.add","brand.update","brand.delete","brand.getall",
@@ -78,9 +80,11 @@ public class AuthManager : IAuthService
         {
             assign = new List<string>
             {
+                "StoreOwner",
                 "product.add","product.update","product.delete","product.getall","product.getbyid",
                 "variant.add","variant.update","variant.delete","stock.update",
                 "store.add","store.update","store.getall","store.getbyid",
+                "brand.add","brand.update","brand.delete","brand.getall",
                 "order.getall","order.getbyid","order.update-status",
                 "review.add","review.update","review.delete",
                 "address.add","address.update","address.getallbyuser"
@@ -90,6 +94,7 @@ public class AuthManager : IAuthService
         {
             assign = new List<string>
             {
+                "User",
                 "product.getall","product.getbyid","category.getall","brand.getall",
                 "order.add","order.getbyid","cart.add","cart.update","cart.delete","cart.get","cart.clear",
                 "user.getbyid","user.update","address.add","address.update","address.getallbyuser",
