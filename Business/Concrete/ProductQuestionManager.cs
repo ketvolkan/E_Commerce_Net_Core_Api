@@ -9,6 +9,8 @@ using Entities.Concrete;
 using Entities.Dtos.ProductQuestions;
 using Business.BusinessAspects.Autofac;
 
+using Core.Utilities.Paging;
+
 public class ProductQuestionManager : IProductQuestionService
 {
     private readonly IProductQuestionDal _productQuestionDal;
@@ -32,6 +34,30 @@ public class ProductQuestionManager : IProductQuestionService
         var userId = Core.Utilities.Security.CurrentUser.GetUserId();
         var userQuestions = _productQuestionDal.GetList(pq => pq.UserId == userId);
         return new SuccessDataResult<List<CreateProductQuestionDto>>(_mapper.Map<List<CreateProductQuestionDto>>(userQuestions));
+    }
+
+    public IDataResult<PagedResult<CreateProductQuestionDto>> GetPaged(PageRequest pageRequest)
+    {
+        PagedResult<ProductQuestion> paged;
+        if (Core.Utilities.Security.CurrentUser.IsAdmin())
+        {
+            paged = _productQuestionDal.GetPagedList(pageRequest.PageNumber, pageRequest.PageSize);
+        }
+        else
+        {
+            var userId = Core.Utilities.Security.CurrentUser.GetUserId();
+            paged = _productQuestionDal.GetPagedList(pageRequest.PageNumber, pageRequest.PageSize, pq => pq.UserId == userId);
+        }
+
+        var dtos = _mapper.Map<List<CreateProductQuestionDto>>(paged.Items);
+        return new PagedDataResult<CreateProductQuestionDto>(dtos, paged.TotalCount, paged.PageNumber, paged.PageSize);
+    }
+
+    public IDataResult<PagedResult<CreateProductQuestionDto>> GetPagedByProductId(int productId, PageRequest pageRequest)
+    {
+        var paged = _productQuestionDal.GetPagedList(pageRequest.PageNumber, pageRequest.PageSize, pq => pq.ProductId == productId);
+        var dtos = _mapper.Map<List<CreateProductQuestionDto>>(paged.Items);
+        return new PagedDataResult<CreateProductQuestionDto>(dtos, paged.TotalCount, paged.PageNumber, paged.PageSize);
     }
 
     [SecuredOperation("product.getall")]

@@ -8,6 +8,8 @@ using DataAccess.Abstract;
 using Entities.Concrete;
 using Entities.Dtos.ProductReviews;
 
+using Core.Utilities.Paging;
+
 public class ProductReviewManager : IProductReviewService
 {
     private readonly IProductReviewDal _productReviewDal;
@@ -30,6 +32,30 @@ public class ProductReviewManager : IProductReviewService
         var userId = Core.Utilities.Security.CurrentUser.GetUserId();
         var userReviews = _productReviewDal.GetList(pr => pr.UserId == userId);
         return new SuccessDataResult<List<CreateProductReviewDto>>(_mapper.Map<List<CreateProductReviewDto>>(userReviews));
+    }
+
+    public IDataResult<PagedResult<CreateProductReviewDto>> GetPaged(PageRequest pageRequest)
+    {
+        PagedResult<ProductReview> paged;
+        if (Core.Utilities.Security.CurrentUser.IsAdmin())
+        {
+            paged = _productReviewDal.GetPagedList(pageRequest.PageNumber, pageRequest.PageSize);
+        }
+        else
+        {
+            var userId = Core.Utilities.Security.CurrentUser.GetUserId();
+            paged = _productReviewDal.GetPagedList(pageRequest.PageNumber, pageRequest.PageSize, pr => pr.UserId == userId);
+        }
+
+        var dtos = _mapper.Map<List<CreateProductReviewDto>>(paged.Items);
+        return new PagedDataResult<CreateProductReviewDto>(dtos, paged.TotalCount, paged.PageNumber, paged.PageSize);
+    }
+
+    public IDataResult<PagedResult<CreateProductReviewDto>> GetPagedByProductId(int productId, PageRequest pageRequest)
+    {
+        var paged = _productReviewDal.GetPagedList(pageRequest.PageNumber, pageRequest.PageSize, pr => pr.ProductId == productId);
+        var dtos = _mapper.Map<List<CreateProductReviewDto>>(paged.Items);
+        return new PagedDataResult<CreateProductReviewDto>(dtos, paged.TotalCount, paged.PageNumber, paged.PageSize);
     }
 
     public IDataResult<CreateProductReviewDto> GetById(int id)

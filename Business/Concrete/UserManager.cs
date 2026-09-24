@@ -1,4 +1,4 @@
-﻿namespace Business.Concrete;
+namespace Business.Concrete;
 
 using Business.Abstract;
 using Core.Entities.Concrete;
@@ -21,6 +21,11 @@ public class UserManager : IUserService
     public User? GetByMail(string email)
     {
         return _userDal.Get(u => u.Email == email);
+    }
+
+    public User? GetById(int id)
+    {
+        return _userDal.Get(u => u.Id == id);
     }
 
     public List<OperationClaim> GetClaims(User user)

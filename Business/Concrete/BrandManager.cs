@@ -8,6 +8,7 @@ using Entities.Concrete;
 using Entities.Dtos.Brands;
 using Business.Constants;
 using Business.BusinessAspects.Autofac;
+using Core.Utilities.Paging;
 
 public class BrandManager : IBrandService
 {
@@ -25,6 +26,13 @@ public class BrandManager : IBrandService
     {
         var list = _brandDal.GetList();
         return new SuccessDataResult<List<BrandListDto>>(_mapper.Map<List<BrandListDto>>(list));
+    }
+
+    public IDataResult<PagedResult<BrandListDto>> GetPaged(PageRequest pageRequest)
+    {
+        var paged = _brandDal.GetPagedList(pageRequest.PageNumber, pageRequest.PageSize);
+        var dtos = _mapper.Map<List<BrandListDto>>(paged.Items);
+        return new PagedDataResult<BrandListDto>(dtos, paged.TotalCount, paged.PageNumber, paged.PageSize);
     }
 
     [SecuredOperation("brand.getall")]
@@ -45,6 +53,14 @@ public class BrandManager : IBrandService
     {
         var userId = Core.Utilities.Security.CurrentUser.GetUserId();
         return GetListByUserId(userId);
+    }
+
+    public IDataResult<PagedResult<BrandListDto>> GetMyBrandsPaged(PageRequest pageRequest)
+    {
+        var userId = Core.Utilities.Security.CurrentUser.GetUserId();
+        var paged = _brandDal.GetPagedList(pageRequest.PageNumber, pageRequest.PageSize, b => b.UserId == userId);
+        var dtos = _mapper.Map<List<BrandListDto>>(paged.Items);
+        return new PagedDataResult<BrandListDto>(dtos, paged.TotalCount, paged.PageNumber, paged.PageSize);
     }
 
     [SecuredOperation("brand.add")]

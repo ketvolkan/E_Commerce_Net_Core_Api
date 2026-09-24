@@ -23,6 +23,30 @@ public class ProductQuestionsController : ControllerBase
         return BadRequest(result);
     }
 
+    /// <summary>
+    /// Tüm soruları sayfalanmış olarak listeler
+    /// GET: api/productquestions/paged?pageNumber=1&pageSize=10
+    /// </summary>
+    [HttpGet("paged")]
+    public IActionResult GetPaged([FromQuery] Core.Utilities.Paging.PageRequest pageRequest)
+    {
+        var result = _service.GetPaged(pageRequest);
+        if (result.Success) return Ok(result);
+        return BadRequest(result);
+    }
+
+    /// <summary>
+    /// Ürüne ait soruları sayfalanmış olarak listeler
+    /// GET: api/productquestions/product/5/paged?pageNumber=1&pageSize=10
+    /// </summary>
+    [HttpGet("product/{productId:int}/paged")]
+    public IActionResult GetPagedByProductId(int productId, [FromQuery] Core.Utilities.Paging.PageRequest pageRequest)
+    {
+        var result = _service.GetPagedByProductId(productId, pageRequest);
+        if (result.Success) return Ok(result);
+        return BadRequest(result);
+    }
+
     [HttpGet("{id:int}")]
     public IActionResult GetById(int id)
     {

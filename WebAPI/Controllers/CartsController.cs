@@ -15,6 +15,42 @@ public class CartsController : ControllerBase
         _cartService = cartService;
     }
 
+    /// <summary>
+    /// Giriş yapan kullanıcının detaylı sepetini (ürün adı, resim, fiyat, satıcı ve toplam tutar) getirir
+    /// GET: api/carts/my-cart
+    /// </summary>
+    [HttpGet("my-cart")]
+    public IActionResult GetMyCart()
+    {
+        var result = _cartService.GetMyCart();
+        if (result.Success) return Ok(result);
+        return BadRequest(result);
+    }
+
+    /// <summary>
+    /// Sepete ürün varyantı ekler veya adedini artırır
+    /// POST: api/carts/add-item
+    /// </summary>
+    [HttpPost("add-item")]
+    public IActionResult AddItem([FromBody] AddToCartDto dto)
+    {
+        var result = _cartService.AddItemToCart(dto);
+        if (result.Success) return Ok(result);
+        return BadRequest(result);
+    }
+
+    /// <summary>
+    /// Kullanıcının sepetini tamamen boşaltır
+    /// POST: api/carts/clear
+    /// </summary>
+    [HttpPost("clear")]
+    public IActionResult Clear()
+    {
+        var result = _cartService.ClearCart();
+        if (result.Success) return Ok(result);
+        return BadRequest(result);
+    }
+
     [HttpGet]
     public IActionResult GetAll()
     {

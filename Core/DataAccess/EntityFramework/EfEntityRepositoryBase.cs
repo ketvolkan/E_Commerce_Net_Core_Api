@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
@@ -47,6 +47,26 @@ namespace Core.DataAccess.EntityFramework
                 return filter == null
                     ? context.Set<TEntity>().ToList()
                     : context.Set<TEntity>().Where(filter).ToList();
+            }
+        }
+
+        public Core.Utilities.Paging.PagedResult<TEntity> GetPagedList(int pageNumber, int pageSize, Expression<Func<TEntity, bool>> filter = null)
+        {
+            using (var context = new TContext())
+            {
+                var safePageNumber = pageNumber < 1 ? 1 : pageNumber;
+                var safePageSize = pageSize < 1 ? 10 : pageSize;
+
+                IQueryable<TEntity> query = context.Set<TEntity>();
+                if (filter != null)
+                {
+                    query = query.Where(filter);
+                }
+
+                var totalCount = query.Count();
+                var items = query.Skip((safePageNumber - 1) * safePageSize).Take(safePageSize).ToList();
+
+                return new Core.Utilities.Paging.PagedResult<TEntity>(items, totalCount, safePageNumber, safePageSize);
             }
         }
 

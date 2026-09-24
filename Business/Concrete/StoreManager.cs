@@ -8,6 +8,8 @@ using DataAccess.Abstract;
 using Entities.Concrete;
 using Entities.Dtos.Stores;
 using Business.BusinessAspects.Autofac;
+using Core.Utilities.Paging;
+
 public class StoreManager : IStoreService
 {
     private readonly IStoreDal _storeDal;
@@ -24,6 +26,13 @@ public class StoreManager : IStoreService
     {
         var list = _storeDal.GetList();
         return new SuccessDataResult<List<StoreListDto>>(_mapper.Map<List<StoreListDto>>(list));
+    }
+
+    public IDataResult<PagedResult<StoreListDto>> GetPaged(PageRequest pageRequest)
+    {
+        var paged = _storeDal.GetPagedList(pageRequest.PageNumber, pageRequest.PageSize);
+        var dtos = _mapper.Map<List<StoreListDto>>(paged.Items);
+        return new PagedDataResult<StoreListDto>(dtos, paged.TotalCount, paged.PageNumber, paged.PageSize);
     }
 
     public IDataResult<StoreListDto> GetById(int id)

@@ -1,4 +1,4 @@
-﻿namespace Business.Concrete;
+namespace Business.Concrete;
 
 using Business.Abstract;
 using Business.Constants;
@@ -149,5 +149,34 @@ public class AuthManager : IAuthService
         var claims = _userService.GetClaims(user);
         var accessToken = _tokenHelper.CreateToken(user, claims);
         return new SuccessDataResult<AccessToken>(accessToken, Messages.AccessTokenCreated);
+    }
+
+    public IDataResult<Entities.Dtos.Users.UserDetailDto> GetMe()
+    {
+        var userId = Core.Utilities.Security.CurrentUser.GetUserId();
+        if (userId <= 0)
+        {
+            return new ErrorDataResult<Entities.Dtos.Users.UserDetailDto>("Kullanıcı oturumu bulunamadı.");
+        }
+
+        var user = _userService.GetById(userId);
+        if (user == null)
+        {
+            return new ErrorDataResult<Entities.Dtos.Users.UserDetailDto>(Messages.UserNotFound);
+        }
+
+        var claims = _userService.GetClaims(user).Select(c => c.Name).ToList();
+
+        var detail = new Entities.Dtos.Users.UserDetailDto
+        {
+            Id = user.Id,
+            FirstName = user.FirstName,
+            LastName = user.LastName,
+            Email = user.Email,
+            PhoneNumber = user.PhoneNumber,
+            Roles = claims
+        };
+
+        return new SuccessDataResult<Entities.Dtos.Users.UserDetailDto>(detail);
     }
 }

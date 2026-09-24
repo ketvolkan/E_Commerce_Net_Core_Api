@@ -1,8 +1,8 @@
 ﻿{
     "info":  {
-                 "_postman_id":  "e4acffbb-e666-4108-89e3-bcbc8febfa80",
+                 "_postman_id":  "f900fb99-f5a6-4f41-8c02-a9975cfe0399",
                  "name":  "E-Commerce Micro-Monolith API (.NET 10 \u0026 PostgreSQL)",
-                 "description":  "Trendyol benzeri Multi-Vendor E-Ticaret RESTful API Postman Koleksiyonu.\n\nÃ–zellikler:\n- 18 Controller ve 88+ Endpoint\n- GerÃ§ekÃ§i TÃ¼rkÃ§e E-Ticaret verileri (DTO validasyonlarÄ±na tam uyumlu)\n- Otomatik JWT Token YÃ¶netimi (Login/Register sonrasÄ±nda token deÄŸiÅŸkeni otomatik gÃ¼ncellenir)\n- Bearer Token yetkilendirme altyapÄ±sÄ±",
+                 "description":  "Trendyol benzeri Multi-Vendor E-Ticaret RESTful API Postman Koleksiyonu.\n\nÃ–zellikler:\n- 18 Controller ve 110+ Endpoint\n- Tam Sayfalama (Pagination) DesteÄŸi: ÃœrÃ¼nler, Arama, SipariÅŸler, Yorumlar, Sorular, MaÄŸazalar, Markalar\n- Frontend \u0026 Mobil hazÄ±r: Sepet Ã‡ekmecesi, Multi-Vendor Checkout, SipariÅŸ GeÃ§miÅŸi, Vitrin, Arama, Favoriler, MaÄŸaza PortalÄ±\n- GerÃ§ekÃ§i TÃ¼rkÃ§e E-Ticaret verileri (DTO validasyonlarÄ±na tam uyumlu)\n- Otomatik JWT Token YÃ¶netimi (Login/Register sonrasÄ±nda token deÄŸiÅŸkeni otomatik gÃ¼ncellenir)\n- Bearer Token yetkilendirme altyapÄ±sÄ±",
                  "schema":  "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
              },
     "auth":  {
@@ -30,7 +30,7 @@
     "item":  [
                  {
                      "name":  "01. Kimlik DoÄŸrulama \u0026 Yetkilendirme (Auth)",
-                     "description":  "KullanÄ±cÄ± kaydÄ± ve JWT token alma iÅŸlemleri",
+                     "description":  "KullanÄ±cÄ± kaydÄ±, giriÅŸ ve profil sorgulama",
                      "item":  [
                                   {
                                       "name":  "MÃ¼ÅŸteri KaydÄ± (Register - User)",
@@ -190,6 +190,30 @@
                                                         "listen":  "test"
                                                     }
                                                 ]
+                                  },
+                                  {
+                                      "name":  "GiriÅŸ Yapan KullanÄ±cÄ± Profili (Get Me)",
+                                      "request":  {
+                                                      "method":  "GET",
+                                                      "header":  [
+                                                                     {
+                                                                         "key":  "Content-Type",
+                                                                         "type":  "text",
+                                                                         "value":  "application/json"
+                                                                     }
+                                                                 ],
+                                                      "url":  {
+                                                                  "raw":  "{{baseUrl}}/api/auth/me",
+                                                                  "host":  [
+                                                                               "{{baseUrl}}"
+                                                                           ],
+                                                                  "path":  [
+                                                                               "api",
+                                                                               "auth",
+                                                                               "me"
+                                                                           ]
+                                                              }
+                                                  }
                                   }
                               ]
                  },
@@ -217,6 +241,40 @@
                                                                                "api",
                                                                                "stores"
                                                                            ]
+                                                              }
+                                                  }
+                                  },
+                                  {
+                                      "name":  "MaÄŸazalarÄ± Sayfala (Paged)",
+                                      "request":  {
+                                                      "method":  "GET",
+                                                      "header":  [
+                                                                     {
+                                                                         "key":  "Content-Type",
+                                                                         "type":  "text",
+                                                                         "value":  "application/json"
+                                                                     }
+                                                                 ],
+                                                      "url":  {
+                                                                  "raw":  "{{baseUrl}}/api/stores/paged?pageNumber=1\u0026pageSize=10",
+                                                                  "host":  [
+                                                                               "{{baseUrl}}"
+                                                                           ],
+                                                                  "path":  [
+                                                                               "api",
+                                                                               "stores",
+                                                                               "paged"
+                                                                           ],
+                                                                  "query":  [
+                                                                                {
+                                                                                    "key":  "pageNumber",
+                                                                                    "value":  "1"
+                                                                                },
+                                                                                {
+                                                                                    "key":  "pageSize",
+                                                                                    "value":  "10"
+                                                                                }
+                                                                            ]
                                                               }
                                                   }
                                   },
@@ -267,7 +325,7 @@
                                                               },
                                                       "body":  {
                                                                    "mode":  "raw",
-                                                                   "raw":  "{\n  \"name\": \"Butik Moda MaÄŸazasÄ±\",\n  \"taxNumber\": \"1234567890\",\n  \"taxOffice\": \"KadÄ±kÃ¶y Vergi Dairesi\",\n  \"iban\": \"TR330006100511123456789012\",\n  \"logoUrl\": \"https://cdn.example.com/stores/butik-moda.png\"\n}",
+                                                                   "raw":  "{\n  \"name\": \"Butik Moda MaÄŸazasÄ±\",\n  \"description\": \"En kaliteli kadÄ±n ve erkek giyim Ã¼rÃ¼nleri butiÄŸi\",\n  \"phoneNumber\": \"02161234567\",\n  \"email\": \"iletisim@butikmoda.com\",\n  \"taxNumber\": \"1234567890\",\n  \"taxOffice\": \"KadÄ±kÃ¶y Vergi Dairesi\",\n  \"iban\": \"TR330006100511123456789012\",\n  \"logoUrl\": \"https://cdn.example.com/stores/butik-moda.png\"\n}",
                                                                    "options":  {
                                                                                    "raw":  {
                                                                                                "language":  "json"
@@ -299,7 +357,7 @@
                                                               },
                                                       "body":  {
                                                                    "mode":  "raw",
-                                                                   "raw":  "{\n  \"id\": 1,\n  \"userId\": 1,\n  \"name\": \"Butik Moda \u0026 TasarÄ±m A.Å.\",\n  \"taxNumber\": \"1234567890\",\n  \"taxOffice\": \"KadÄ±kÃ¶y Vergi Dairesi\",\n  \"iban\": \"TR330006100511123456789012\",\n  \"logoUrl\": \"https://cdn.example.com/stores/butik-moda-v2.png\",\n  \"rating\": 4.8,\n  \"isApproved\": true\n}",
+                                                                   "raw":  "{\n  \"id\": 1,\n  \"userId\": 1,\n  \"name\": \"Butik Moda \u0026 TasarÄ±m A.Å.\",\n  \"description\": \"En kaliteli kadÄ±n ve erkek giyim Ã¼rÃ¼nleri butiÄŸi (GÃ¼ncellendi)\",\n  \"phoneNumber\": \"02161234567\",\n  \"email\": \"destek@butikmoda.com\",\n  \"taxNumber\": \"1234567890\",\n  \"taxOffice\": \"KadÄ±kÃ¶y Vergi Dairesi\",\n  \"iban\": \"TR330006100511123456789012\",\n  \"logoUrl\": \"https://cdn.example.com/stores/butik-moda-v2.png\",\n  \"rating\": 4.8,\n  \"isApproved\": true\n}",
                                                                    "options":  {
                                                                                    "raw":  {
                                                                                                "language":  "json"
@@ -477,7 +535,7 @@
                  },
                  {
                      "name":  "04. Markalar (Brands)",
-                     "description":  "Marka yÃ¶netimi (SatÄ±cÄ±/KullanÄ±cÄ± bazlÄ± sahiplik)",
+                     "description":  "Marka yÃ¶netimi (SatÄ±cÄ±/KullanÄ±cÄ± bazlÄ± sahiplik ve sayfalama)",
                      "item":  [
                                   {
                                       "name":  "TÃ¼m MarkalarÄ± Listele",
@@ -499,6 +557,40 @@
                                                                                "api",
                                                                                "brands"
                                                                            ]
+                                                              }
+                                                  }
+                                  },
+                                  {
+                                      "name":  "MarkalarÄ± Sayfala (Paged)",
+                                      "request":  {
+                                                      "method":  "GET",
+                                                      "header":  [
+                                                                     {
+                                                                         "key":  "Content-Type",
+                                                                         "type":  "text",
+                                                                         "value":  "application/json"
+                                                                     }
+                                                                 ],
+                                                      "url":  {
+                                                                  "raw":  "{{baseUrl}}/api/brands/paged?pageNumber=1\u0026pageSize=10",
+                                                                  "host":  [
+                                                                               "{{baseUrl}}"
+                                                                           ],
+                                                                  "path":  [
+                                                                               "api",
+                                                                               "brands",
+                                                                               "paged"
+                                                                           ],
+                                                                  "query":  [
+                                                                                {
+                                                                                    "key":  "pageNumber",
+                                                                                    "value":  "1"
+                                                                                },
+                                                                                {
+                                                                                    "key":  "pageSize",
+                                                                                    "value":  "10"
+                                                                                }
+                                                                            ]
                                                               }
                                                   }
                                   },
@@ -547,6 +639,41 @@
                                                                                "brands",
                                                                                "my-brands"
                                                                            ]
+                                                              }
+                                                  }
+                                  },
+                                  {
+                                      "name":  "SatÄ±cÄ± MarkalarÄ±nÄ± Sayfala (My Brands Paged)",
+                                      "request":  {
+                                                      "method":  "GET",
+                                                      "header":  [
+                                                                     {
+                                                                         "key":  "Content-Type",
+                                                                         "type":  "text",
+                                                                         "value":  "application/json"
+                                                                     }
+                                                                 ],
+                                                      "url":  {
+                                                                  "raw":  "{{baseUrl}}/api/brands/my-brands/paged?pageNumber=1\u0026pageSize=10",
+                                                                  "host":  [
+                                                                               "{{baseUrl}}"
+                                                                           ],
+                                                                  "path":  [
+                                                                               "api",
+                                                                               "brands",
+                                                                               "my-brands",
+                                                                               "paged"
+                                                                           ],
+                                                                  "query":  [
+                                                                                {
+                                                                                    "key":  "pageNumber",
+                                                                                    "value":  "1"
+                                                                                },
+                                                                                {
+                                                                                    "key":  "pageSize",
+                                                                                    "value":  "10"
+                                                                                }
+                                                                            ]
                                                               }
                                                   }
                                   },
@@ -667,7 +794,7 @@
                  },
                  {
                      "name":  "05. ÃœrÃ¼nler (Products)",
-                     "description":  "Ana Ã¼rÃ¼n yÃ¶netimi (SatÄ±cÄ±/KullanÄ±cÄ± bazlÄ± sahiplik, GÃ¶rseller ve Varyantlar dahil)",
+                     "description":  "Ana Ã¼rÃ¼n yÃ¶netimi (Varyant \u0026 Galeri, Vitrin, Sayfalama, Arama ve Filtreleme)",
                      "item":  [
                                   {
                                       "name":  "TÃ¼m ÃœrÃ¼nleri Listele",
@@ -689,6 +816,118 @@
                                                                                "api",
                                                                                "products"
                                                                            ]
+                                                              }
+                                                  }
+                                  },
+                                  {
+                                      "name":  "ÃœrÃ¼nleri Sayfala (Paged)",
+                                      "request":  {
+                                                      "method":  "GET",
+                                                      "header":  [
+                                                                     {
+                                                                         "key":  "Content-Type",
+                                                                         "type":  "text",
+                                                                         "value":  "application/json"
+                                                                     }
+                                                                 ],
+                                                      "url":  {
+                                                                  "raw":  "{{baseUrl}}/api/products/paged?pageNumber=1\u0026pageSize=10",
+                                                                  "host":  [
+                                                                               "{{baseUrl}}"
+                                                                           ],
+                                                                  "path":  [
+                                                                               "api",
+                                                                               "products",
+                                                                               "paged"
+                                                                           ],
+                                                                  "query":  [
+                                                                                {
+                                                                                    "key":  "pageNumber",
+                                                                                    "value":  "1"
+                                                                                },
+                                                                                {
+                                                                                    "key":  "pageSize",
+                                                                                    "value":  "10"
+                                                                                }
+                                                                            ]
+                                                              }
+                                                  }
+                                  },
+                                  {
+                                      "name":  "Ã–ne Ã‡Ä±kan ÃœrÃ¼nler (Ana Sayfa Vitrini)",
+                                      "request":  {
+                                                      "method":  "GET",
+                                                      "header":  [
+                                                                     {
+                                                                         "key":  "Content-Type",
+                                                                         "type":  "text",
+                                                                         "value":  "application/json"
+                                                                     }
+                                                                 ],
+                                                      "url":  {
+                                                                  "raw":  "{{baseUrl}}/api/products/featured",
+                                                                  "host":  [
+                                                                               "{{baseUrl}}"
+                                                                           ],
+                                                                  "path":  [
+                                                                               "api",
+                                                                               "products",
+                                                                               "featured"
+                                                                           ]
+                                                              }
+                                                  }
+                                  },
+                                  {
+                                      "name":  "ÃœrÃ¼n Arama \u0026 Filtreleme (Search \u0026 Paged)",
+                                      "request":  {
+                                                      "method":  "GET",
+                                                      "header":  [
+                                                                     {
+                                                                         "key":  "Content-Type",
+                                                                         "type":  "text",
+                                                                         "value":  "application/json"
+                                                                     }
+                                                                 ],
+                                                      "url":  {
+                                                                  "raw":  "{{baseUrl}}/api/products/search?keyword=elbise\u0026categoryId=1\u0026minPrice=100\u0026maxPrice=1000\u0026sortBy=price_asc\u0026pageNumber=1\u0026pageSize=12",
+                                                                  "host":  [
+                                                                               "{{baseUrl}}"
+                                                                           ],
+                                                                  "path":  [
+                                                                               "api",
+                                                                               "products",
+                                                                               "search"
+                                                                           ],
+                                                                  "query":  [
+                                                                                {
+                                                                                    "key":  "keyword",
+                                                                                    "value":  "elbise"
+                                                                                },
+                                                                                {
+                                                                                    "key":  "categoryId",
+                                                                                    "value":  "1"
+                                                                                },
+                                                                                {
+                                                                                    "key":  "minPrice",
+                                                                                    "value":  "100"
+                                                                                },
+                                                                                {
+                                                                                    "key":  "maxPrice",
+                                                                                    "value":  "1000"
+                                                                                },
+                                                                                {
+                                                                                    "key":  "sortBy",
+                                                                                    "value":  "price_asc"
+                                                                                },
+                                                                                {
+                                                                                    "key":  "pageNumber",
+                                                                                    "value":  "1"
+                                                                                },
+                                                                                {
+                                                                                    "key":  "pageSize",
+                                                                                    "value":  "12"
+                                                                                }
+                                                                            ]
                                                               }
                                                   }
                                   },
@@ -742,6 +981,42 @@
                                                   }
                                   },
                                   {
+                                      "name":  "Kategori ÃœrÃ¼nlerini Sayfala (Category Paged)",
+                                      "request":  {
+                                                      "method":  "GET",
+                                                      "header":  [
+                                                                     {
+                                                                         "key":  "Content-Type",
+                                                                         "type":  "text",
+                                                                         "value":  "application/json"
+                                                                     }
+                                                                 ],
+                                                      "url":  {
+                                                                  "raw":  "{{baseUrl}}/api/products/category/1/paged?pageNumber=1\u0026pageSize=10",
+                                                                  "host":  [
+                                                                               "{{baseUrl}}"
+                                                                           ],
+                                                                  "path":  [
+                                                                               "api",
+                                                                               "products",
+                                                                               "category",
+                                                                               "1",
+                                                                               "paged"
+                                                                           ],
+                                                                  "query":  [
+                                                                                {
+                                                                                    "key":  "pageNumber",
+                                                                                    "value":  "1"
+                                                                                },
+                                                                                {
+                                                                                    "key":  "pageSize",
+                                                                                    "value":  "10"
+                                                                                }
+                                                                            ]
+                                                              }
+                                                  }
+                                  },
+                                  {
                                       "name":  "GiriÅŸ Yapan SatÄ±cÄ±nÄ±n ÃœrÃ¼nlerini Listele",
                                       "request":  {
                                                       "method":  "GET",
@@ -762,6 +1037,41 @@
                                                                                "products",
                                                                                "my-products"
                                                                            ]
+                                                              }
+                                                  }
+                                  },
+                                  {
+                                      "name":  "SatÄ±cÄ± ÃœrÃ¼nlerini Sayfala (My Products Paged)",
+                                      "request":  {
+                                                      "method":  "GET",
+                                                      "header":  [
+                                                                     {
+                                                                         "key":  "Content-Type",
+                                                                         "type":  "text",
+                                                                         "value":  "application/json"
+                                                                     }
+                                                                 ],
+                                                      "url":  {
+                                                                  "raw":  "{{baseUrl}}/api/products/my-products/paged?pageNumber=1\u0026pageSize=10",
+                                                                  "host":  [
+                                                                               "{{baseUrl}}"
+                                                                           ],
+                                                                  "path":  [
+                                                                               "api",
+                                                                               "products",
+                                                                               "my-products",
+                                                                               "paged"
+                                                                           ],
+                                                                  "query":  [
+                                                                                {
+                                                                                    "key":  "pageNumber",
+                                                                                    "value":  "1"
+                                                                                },
+                                                                                {
+                                                                                    "key":  "pageSize",
+                                                                                    "value":  "10"
+                                                                                }
+                                                                            ]
                                                               }
                                                   }
                                   },
@@ -787,6 +1097,42 @@
                                                                                "user",
                                                                                "1"
                                                                            ]
+                                                              }
+                                                  }
+                                  },
+                                  {
+                                      "name":  "KullanÄ±cÄ± ÃœrÃ¼nlerini Sayfala (User Products Paged)",
+                                      "request":  {
+                                                      "method":  "GET",
+                                                      "header":  [
+                                                                     {
+                                                                         "key":  "Content-Type",
+                                                                         "type":  "text",
+                                                                         "value":  "application/json"
+                                                                     }
+                                                                 ],
+                                                      "url":  {
+                                                                  "raw":  "{{baseUrl}}/api/products/user/1/paged?pageNumber=1\u0026pageSize=10",
+                                                                  "host":  [
+                                                                               "{{baseUrl}}"
+                                                                           ],
+                                                                  "path":  [
+                                                                               "api",
+                                                                               "products",
+                                                                               "user",
+                                                                               "1",
+                                                                               "paged"
+                                                                           ],
+                                                                  "query":  [
+                                                                                {
+                                                                                    "key":  "pageNumber",
+                                                                                    "value":  "1"
+                                                                                },
+                                                                                {
+                                                                                    "key":  "pageSize",
+                                                                                    "value":  "10"
+                                                                                }
+                                                                            ]
                                                               }
                                                   }
                                   },
@@ -1164,10 +1510,91 @@
                  },
                  {
                      "name":  "08. Sepet (Carts)",
-                     "description":  "KullanÄ±cÄ± sepet baÅŸlÄ±ÄŸÄ± iÅŸlemleri",
+                     "description":  "KullanÄ±cÄ± sepeti, sepet Ã§ekmecesi (drawer), Ã¼rÃ¼n ekleme ve temizleme",
                      "item":  [
                                   {
-                                      "name":  "TÃ¼m Sepetleri Listele",
+                                      "name":  "KullanÄ±cÄ±nÄ±n Sepetini Getir (My Cart - Drawer)",
+                                      "request":  {
+                                                      "method":  "GET",
+                                                      "header":  [
+                                                                     {
+                                                                         "key":  "Content-Type",
+                                                                         "type":  "text",
+                                                                         "value":  "application/json"
+                                                                     }
+                                                                 ],
+                                                      "url":  {
+                                                                  "raw":  "{{baseUrl}}/api/carts/my-cart",
+                                                                  "host":  [
+                                                                               "{{baseUrl}}"
+                                                                           ],
+                                                                  "path":  [
+                                                                               "api",
+                                                                               "carts",
+                                                                               "my-cart"
+                                                                           ]
+                                                              }
+                                                  }
+                                  },
+                                  {
+                                      "name":  "Sepete ÃœrÃ¼n Ekle (Add Item To Cart)",
+                                      "request":  {
+                                                      "method":  "POST",
+                                                      "header":  [
+                                                                     {
+                                                                         "key":  "Content-Type",
+                                                                         "type":  "text",
+                                                                         "value":  "application/json"
+                                                                     }
+                                                                 ],
+                                                      "url":  {
+                                                                  "raw":  "{{baseUrl}}/api/carts/add-item",
+                                                                  "host":  [
+                                                                               "{{baseUrl}}"
+                                                                           ],
+                                                                  "path":  [
+                                                                               "api",
+                                                                               "carts",
+                                                                               "add-item"
+                                                                           ]
+                                                              },
+                                                      "body":  {
+                                                                   "mode":  "raw",
+                                                                   "raw":  "{\n  \"productVariantId\": 1,\n  \"quantity\": 1\n}",
+                                                                   "options":  {
+                                                                                   "raw":  {
+                                                                                               "language":  "json"
+                                                                                           }
+                                                                               }
+                                                               }
+                                                  }
+                                  },
+                                  {
+                                      "name":  "Sepeti BoÅŸalt (Clear Cart)",
+                                      "request":  {
+                                                      "method":  "POST",
+                                                      "header":  [
+                                                                     {
+                                                                         "key":  "Content-Type",
+                                                                         "type":  "text",
+                                                                         "value":  "application/json"
+                                                                     }
+                                                                 ],
+                                                      "url":  {
+                                                                  "raw":  "{{baseUrl}}/api/carts/clear",
+                                                                  "host":  [
+                                                                               "{{baseUrl}}"
+                                                                           ],
+                                                                  "path":  [
+                                                                               "api",
+                                                                               "carts",
+                                                                               "clear"
+                                                                           ]
+                                                              }
+                                                  }
+                                  },
+                                  {
+                                      "name":  "TÃ¼m Sepetleri Listele (Admin)",
                                       "request":  {
                                                       "method":  "GET",
                                                       "header":  [
@@ -1214,7 +1641,7 @@
                                                   }
                                   },
                                   {
-                                      "name":  "Sepet OluÅŸtur / ÃœrÃ¼n Ekle",
+                                      "name":  "Sepet OluÅŸtur",
                                       "request":  {
                                                       "method":  "POST",
                                                       "header":  [
@@ -1446,10 +1873,127 @@
                  },
                  {
                      "name":  "10. SipariÅŸler (Orders)",
-                     "description":  "MÃ¼ÅŸteri ana sipariÅŸ oluÅŸturma ve takip",
+                     "description":  "MÃ¼ÅŸteri checkout iÅŸlemi, sipariÅŸ geÃ§miÅŸi ve detay takibi",
                      "item":  [
                                   {
-                                      "name":  "TÃ¼m SipariÅŸleri Listele",
+                                      "name":  "SipariÅŸi Tamamla (Multi-Vendor Checkout)",
+                                      "request":  {
+                                                      "method":  "POST",
+                                                      "header":  [
+                                                                     {
+                                                                         "key":  "Content-Type",
+                                                                         "type":  "text",
+                                                                         "value":  "application/json"
+                                                                     }
+                                                                 ],
+                                                      "url":  {
+                                                                  "raw":  "{{baseUrl}}/api/orders/checkout",
+                                                                  "host":  [
+                                                                               "{{baseUrl}}"
+                                                                           ],
+                                                                  "path":  [
+                                                                               "api",
+                                                                               "orders",
+                                                                               "checkout"
+                                                                           ]
+                                                              },
+                                                      "body":  {
+                                                                   "mode":  "raw",
+                                                                   "raw":  "{\n  \"shippingAddressId\": 1,\n  \"billingAddressId\": 1,\n  \"paymentMethod\": \"CreditCard\"\n}",
+                                                                   "options":  {
+                                                                                   "raw":  {
+                                                                                               "language":  "json"
+                                                                                           }
+                                                                               }
+                                                               }
+                                                  }
+                                  },
+                                  {
+                                      "name":  "KullanÄ±cÄ±nÄ±n SipariÅŸ GeÃ§miÅŸi (My Orders)",
+                                      "request":  {
+                                                      "method":  "GET",
+                                                      "header":  [
+                                                                     {
+                                                                         "key":  "Content-Type",
+                                                                         "type":  "text",
+                                                                         "value":  "application/json"
+                                                                     }
+                                                                 ],
+                                                      "url":  {
+                                                                  "raw":  "{{baseUrl}}/api/orders/my-orders",
+                                                                  "host":  [
+                                                                               "{{baseUrl}}"
+                                                                           ],
+                                                                  "path":  [
+                                                                               "api",
+                                                                               "orders",
+                                                                               "my-orders"
+                                                                           ]
+                                                              }
+                                                  }
+                                  },
+                                  {
+                                      "name":  "KullanÄ±cÄ± SipariÅŸlerini Sayfala (My Orders Paged)",
+                                      "request":  {
+                                                      "method":  "GET",
+                                                      "header":  [
+                                                                     {
+                                                                         "key":  "Content-Type",
+                                                                         "type":  "text",
+                                                                         "value":  "application/json"
+                                                                     }
+                                                                 ],
+                                                      "url":  {
+                                                                  "raw":  "{{baseUrl}}/api/orders/my-orders/paged?pageNumber=1\u0026pageSize=10",
+                                                                  "host":  [
+                                                                               "{{baseUrl}}"
+                                                                           ],
+                                                                  "path":  [
+                                                                               "api",
+                                                                               "orders",
+                                                                               "my-orders",
+                                                                               "paged"
+                                                                           ],
+                                                                  "query":  [
+                                                                                {
+                                                                                    "key":  "pageNumber",
+                                                                                    "value":  "1"
+                                                                                },
+                                                                                {
+                                                                                    "key":  "pageSize",
+                                                                                    "value":  "10"
+                                                                                }
+                                                                            ]
+                                                              }
+                                                  }
+                                  },
+                                  {
+                                      "name":  "SipariÅŸ DetayÄ± (Order Detail with SubOrders)",
+                                      "request":  {
+                                                      "method":  "GET",
+                                                      "header":  [
+                                                                     {
+                                                                         "key":  "Content-Type",
+                                                                         "type":  "text",
+                                                                         "value":  "application/json"
+                                                                     }
+                                                                 ],
+                                                      "url":  {
+                                                                  "raw":  "{{baseUrl}}/api/orders/1/detail",
+                                                                  "host":  [
+                                                                               "{{baseUrl}}"
+                                                                           ],
+                                                                  "path":  [
+                                                                               "api",
+                                                                               "orders",
+                                                                               "1",
+                                                                               "detail"
+                                                                           ]
+                                                              }
+                                                  }
+                                  },
+                                  {
+                                      "name":  "TÃ¼m SipariÅŸleri Listele (Admin)",
                                       "request":  {
                                                       "method":  "GET",
                                                       "header":  [
@@ -1468,6 +2012,40 @@
                                                                                "api",
                                                                                "orders"
                                                                            ]
+                                                              }
+                                                  }
+                                  },
+                                  {
+                                      "name":  "TÃ¼m SipariÅŸleri Sayfala (Orders Paged - Admin)",
+                                      "request":  {
+                                                      "method":  "GET",
+                                                      "header":  [
+                                                                     {
+                                                                         "key":  "Content-Type",
+                                                                         "type":  "text",
+                                                                         "value":  "application/json"
+                                                                     }
+                                                                 ],
+                                                      "url":  {
+                                                                  "raw":  "{{baseUrl}}/api/orders/paged?pageNumber=1\u0026pageSize=10",
+                                                                  "host":  [
+                                                                               "{{baseUrl}}"
+                                                                           ],
+                                                                  "path":  [
+                                                                               "api",
+                                                                               "orders",
+                                                                               "paged"
+                                                                           ],
+                                                                  "query":  [
+                                                                                {
+                                                                                    "key":  "pageNumber",
+                                                                                    "value":  "1"
+                                                                                },
+                                                                                {
+                                                                                    "key":  "pageSize",
+                                                                                    "value":  "10"
+                                                                                }
+                                                                            ]
                                                               }
                                                   }
                                   },
@@ -1518,7 +2096,7 @@
                                                               },
                                                       "body":  {
                                                                    "mode":  "raw",
-                                                                   "raw":  "{\n  \"shippingAddressId\": 1,\n  \"orderNumber\": \"ORD-20260924-0001\",\n  \"totalPrice\": 799.98,\n  \"paymentStatus\": \"Paid\"\n}",
+                                                                   "raw":  "{\n  \"shippingAddressId\": 1,\n  \"billingAddressId\": 1,\n  \"orderNumber\": \"ORD-20260924-0001\",\n  \"orderStatus\": \"Created\",\n  \"totalPrice\": 799.98,\n  \"paymentStatus\": \"Paid\"\n}",
                                                                    "options":  {
                                                                                    "raw":  {
                                                                                                "language":  "json"
@@ -1550,7 +2128,7 @@
                                                               },
                                                       "body":  {
                                                                    "mode":  "raw",
-                                                                   "raw":  "{\n  \"id\": 1,\n  \"userId\": 1,\n  \"shippingAddressId\": 1,\n  \"orderNumber\": \"ORD-20260924-0001\",\n  \"totalPrice\": 799.98,\n  \"paymentStatus\": \"Completed\"\n}",
+                                                                   "raw":  "{\n  \"id\": 1,\n  \"userId\": 1,\n  \"shippingAddressId\": 1,\n  \"billingAddressId\": 1,\n  \"orderNumber\": \"ORD-20260924-0001\",\n  \"orderStatus\": \"Processing\",\n  \"totalPrice\": 799.98,\n  \"paymentStatus\": \"Completed\"\n}",
                                                                    "options":  {
                                                                                    "raw":  {
                                                                                                "language":  "json"
@@ -1590,7 +2168,66 @@
                      "description":  "Multi-vendor sipariÅŸin satÄ±cÄ± bazlÄ± alt parÃ§alarÄ± ve kargo takibi",
                      "item":  [
                                   {
-                                      "name":  "TÃ¼m Alt SipariÅŸleri Listele",
+                                      "name":  "SatÄ±cÄ± MaÄŸaza SipariÅŸleri (My Store Orders)",
+                                      "request":  {
+                                                      "method":  "GET",
+                                                      "header":  [
+                                                                     {
+                                                                         "key":  "Content-Type",
+                                                                         "type":  "text",
+                                                                         "value":  "application/json"
+                                                                     }
+                                                                 ],
+                                                      "url":  {
+                                                                  "raw":  "{{baseUrl}}/api/suborders/my-store-orders",
+                                                                  "host":  [
+                                                                               "{{baseUrl}}"
+                                                                           ],
+                                                                  "path":  [
+                                                                               "api",
+                                                                               "suborders",
+                                                                               "my-store-orders"
+                                                                           ]
+                                                              }
+                                                  }
+                                  },
+                                  {
+                                      "name":  "SatÄ±cÄ± MaÄŸaza SipariÅŸlerini Sayfala (My Store Orders Paged)",
+                                      "request":  {
+                                                      "method":  "GET",
+                                                      "header":  [
+                                                                     {
+                                                                         "key":  "Content-Type",
+                                                                         "type":  "text",
+                                                                         "value":  "application/json"
+                                                                     }
+                                                                 ],
+                                                      "url":  {
+                                                                  "raw":  "{{baseUrl}}/api/suborders/my-store-orders/paged?pageNumber=1\u0026pageSize=10",
+                                                                  "host":  [
+                                                                               "{{baseUrl}}"
+                                                                           ],
+                                                                  "path":  [
+                                                                               "api",
+                                                                               "suborders",
+                                                                               "my-store-orders",
+                                                                               "paged"
+                                                                           ],
+                                                                  "query":  [
+                                                                                {
+                                                                                    "key":  "pageNumber",
+                                                                                    "value":  "1"
+                                                                                },
+                                                                                {
+                                                                                    "key":  "pageSize",
+                                                                                    "value":  "10"
+                                                                                }
+                                                                            ]
+                                                              }
+                                                  }
+                                  },
+                                  {
+                                      "name":  "TÃ¼m Alt SipariÅŸleri Listele (Admin)",
                                       "request":  {
                                                       "method":  "GET",
                                                       "header":  [
@@ -1609,6 +2246,40 @@
                                                                                "api",
                                                                                "suborders"
                                                                            ]
+                                                              }
+                                                  }
+                                  },
+                                  {
+                                      "name":  "TÃ¼m Alt SipariÅŸleri Sayfala (SubOrders Paged - Admin)",
+                                      "request":  {
+                                                      "method":  "GET",
+                                                      "header":  [
+                                                                     {
+                                                                         "key":  "Content-Type",
+                                                                         "type":  "text",
+                                                                         "value":  "application/json"
+                                                                     }
+                                                                 ],
+                                                      "url":  {
+                                                                  "raw":  "{{baseUrl}}/api/suborders/paged?pageNumber=1\u0026pageSize=10",
+                                                                  "host":  [
+                                                                               "{{baseUrl}}"
+                                                                           ],
+                                                                  "path":  [
+                                                                               "api",
+                                                                               "suborders",
+                                                                               "paged"
+                                                                           ],
+                                                                  "query":  [
+                                                                                {
+                                                                                    "key":  "pageNumber",
+                                                                                    "value":  "1"
+                                                                                },
+                                                                                {
+                                                                                    "key":  "pageSize",
+                                                                                    "value":  "10"
+                                                                                }
+                                                                            ]
                                                               }
                                                   }
                                   },
@@ -1659,7 +2330,7 @@
                                                               },
                                                       "body":  {
                                                                    "mode":  "raw",
-                                                                   "raw":  "{\n  \"orderId\": 1,\n  \"storeId\": 1,\n  \"subOrderNumber\": \"SUB-20260924-0001-S1\",\n  \"status\": \"Preparing\",\n  \"cargoTrackingNumber\": \"YK123456789TR\",\n  \"cargoCompany\": \"YurtiÃ§i Kargo\"\n}",
+                                                                   "raw":  "{\n  \"orderId\": 1,\n  \"storeId\": 1,\n  \"subOrderNumber\": \"SUB-20260924-0001-S1\",\n  \"totalPrice\": 399.99,\n  \"status\": \"Preparing\",\n  \"cargoTrackingNumber\": \"YK123456789TR\",\n  \"cargoCompany\": \"YurtiÃ§i Kargo\"\n}",
                                                                    "options":  {
                                                                                    "raw":  {
                                                                                                "language":  "json"
@@ -1691,7 +2362,7 @@
                                                               },
                                                       "body":  {
                                                                    "mode":  "raw",
-                                                                   "raw":  "{\n  \"id\": 1,\n  \"orderId\": 1,\n  \"storeId\": 1,\n  \"subOrderNumber\": \"SUB-20260924-0001-S1\",\n  \"status\": \"Shipped\",\n  \"cargoTrackingNumber\": \"YK123456789TR\",\n  \"cargoCompany\": \"YurtiÃ§i Kargo\"\n}",
+                                                                   "raw":  "{\n  \"id\": 1,\n  \"orderId\": 1,\n  \"storeId\": 1,\n  \"subOrderNumber\": \"SUB-20260924-0001-S1\",\n  \"totalPrice\": 399.99,\n  \"status\": \"Shipped\",\n  \"cargoTrackingNumber\": \"YK123456789TR\",\n  \"cargoCompany\": \"YurtiÃ§i Kargo\"\n}",
                                                                    "options":  {
                                                                                    "raw":  {
                                                                                                "language":  "json"
@@ -1800,7 +2471,7 @@
                                                               },
                                                       "body":  {
                                                                    "mode":  "raw",
-                                                                   "raw":  "{\n  \"subOrderId\": 1,\n  \"productVariantId\": 1,\n  \"quantity\": 2,\n  \"unitPrice\": 399.99,\n  \"commissionRate\": 12.5\n}",
+                                                                   "raw":  "{\n  \"subOrderId\": 1,\n  \"productVariantId\": 1,\n  \"productName\": \"Oversize Pamuklu KadÄ±n Elbise\",\n  \"variantInfo\": \"Mavi / M\",\n  \"quantity\": 2,\n  \"unitPrice\": 399.99,\n  \"commissionRate\": 12.5\n}",
                                                                    "options":  {
                                                                                    "raw":  {
                                                                                                "language":  "json"
@@ -1832,7 +2503,7 @@
                                                               },
                                                       "body":  {
                                                                    "mode":  "raw",
-                                                                   "raw":  "{\n  \"id\": 1,\n  \"subOrderId\": 1,\n  \"productVariantId\": 1,\n  \"quantity\": 2,\n  \"unitPrice\": 399.99,\n  \"commissionRate\": 12.5\n}",
+                                                                   "raw":  "{\n  \"id\": 1,\n  \"subOrderId\": 1,\n  \"productVariantId\": 1,\n  \"productName\": \"Oversize Pamuklu KadÄ±n Elbise\",\n  \"variantInfo\": \"Mavi / M\",\n  \"quantity\": 2,\n  \"unitPrice\": 399.99,\n  \"commissionRate\": 12.5\n}",
                                                                    "options":  {
                                                                                    "raw":  {
                                                                                                "language":  "json"
@@ -1872,7 +2543,31 @@
                      "description":  "Teslimat ve fatura adresleri yÃ¶netimi",
                      "item":  [
                                   {
-                                      "name":  "TÃ¼m Adresleri Listele",
+                                      "name":  "KullanÄ±cÄ±nÄ±n KayÄ±tlÄ± Adresleri (My Addresses)",
+                                      "request":  {
+                                                      "method":  "GET",
+                                                      "header":  [
+                                                                     {
+                                                                         "key":  "Content-Type",
+                                                                         "type":  "text",
+                                                                         "value":  "application/json"
+                                                                     }
+                                                                 ],
+                                                      "url":  {
+                                                                  "raw":  "{{baseUrl}}/api/addresses/my-addresses",
+                                                                  "host":  [
+                                                                               "{{baseUrl}}"
+                                                                           ],
+                                                                  "path":  [
+                                                                               "api",
+                                                                               "addresses",
+                                                                               "my-addresses"
+                                                                           ]
+                                                              }
+                                                  }
+                                  },
+                                  {
+                                      "name":  "TÃ¼m Adresleri Listele (Admin)",
                                       "request":  {
                                                       "method":  "GET",
                                                       "header":  [
@@ -1941,7 +2636,7 @@
                                                               },
                                                       "body":  {
                                                                    "mode":  "raw",
-                                                                   "raw":  "{\n  \"title\": \"Ev Adresim\",\n  \"city\": \"Ä°stanbul\",\n  \"district\": \"KadÄ±kÃ¶y\",\n  \"addressDetail\": \"CaferaÄŸa Mah. Moda Cad. No:45 Daire:6\",\n  \"zipCode\": \"34710\"\n}",
+                                                                   "raw":  "{\n  \"title\": \"Ev Adresim\",\n  \"contactName\": \"Ahmet YÄ±lmaz\",\n  \"phoneNumber\": \"05551234567\",\n  \"city\": \"Ä°stanbul\",\n  \"district\": \"KadÄ±kÃ¶y\",\n  \"addressDetail\": \"CaferaÄŸa Mah. Moda Cad. No:45 Daire:6\",\n  \"zipCode\": \"34710\",\n  \"taxNumber\": \"\",\n  \"taxOffice\": \"\"\n}",
                                                                    "options":  {
                                                                                    "raw":  {
                                                                                                "language":  "json"
@@ -1973,7 +2668,7 @@
                                                               },
                                                       "body":  {
                                                                    "mode":  "raw",
-                                                                   "raw":  "{\n  \"id\": 1,\n  \"userId\": 1,\n  \"title\": \"Ev Adresi (GÃ¼ncel)\",\n  \"city\": \"Ä°stanbul\",\n  \"district\": \"KadÄ±kÃ¶y\",\n  \"addressDetail\": \"CaferaÄŸa Mah. Moda Cad. No:45 Daire:8\",\n  \"zipCode\": \"34710\"\n}",
+                                                                   "raw":  "{\n  \"id\": 1,\n  \"userId\": 1,\n  \"title\": \"Ev Adresi (GÃ¼ncel)\",\n  \"contactName\": \"Ahmet YÄ±lmaz\",\n  \"phoneNumber\": \"05551234567\",\n  \"city\": \"Ä°stanbul\",\n  \"district\": \"KadÄ±kÃ¶y\",\n  \"addressDetail\": \"CaferaÄŸa Mah. Moda Cad. No:45 Daire:8\",\n  \"zipCode\": \"34710\",\n  \"taxNumber\": \"\",\n  \"taxOffice\": \"\"\n}",
                                                                    "options":  {
                                                                                    "raw":  {
                                                                                                "language":  "json"
@@ -2009,11 +2704,60 @@
                               ]
                  },
                  {
-                     "name":  "14. Favoriler (Favorites)",
-                     "description":  "KullanÄ±cÄ± favori Ã¼rÃ¼n takibi",
+                     "name":  "14. Favoriler (Favorites / Wishlist)",
+                     "description":  "KullanÄ±cÄ± favori Ã¼rÃ¼n listesi ve tek tÄ±kla favori ekle/Ã§Ä±kar (toggle)",
                      "item":  [
                                   {
-                                      "name":  "TÃ¼m Favorileri Listele",
+                                      "name":  "Favorilerim (My Wishlist)",
+                                      "request":  {
+                                                      "method":  "GET",
+                                                      "header":  [
+                                                                     {
+                                                                         "key":  "Content-Type",
+                                                                         "type":  "text",
+                                                                         "value":  "application/json"
+                                                                     }
+                                                                 ],
+                                                      "url":  {
+                                                                  "raw":  "{{baseUrl}}/api/favorites/my-favorites",
+                                                                  "host":  [
+                                                                               "{{baseUrl}}"
+                                                                           ],
+                                                                  "path":  [
+                                                                               "api",
+                                                                               "favorites",
+                                                                               "my-favorites"
+                                                                           ]
+                                                              }
+                                                  }
+                                  },
+                                  {
+                                      "name":  "Favori Ekle/KaldÄ±r (Toggle Favorite)",
+                                      "request":  {
+                                                      "method":  "POST",
+                                                      "header":  [
+                                                                     {
+                                                                         "key":  "Content-Type",
+                                                                         "type":  "text",
+                                                                         "value":  "application/json"
+                                                                     }
+                                                                 ],
+                                                      "url":  {
+                                                                  "raw":  "{{baseUrl}}/api/favorites/toggle/1",
+                                                                  "host":  [
+                                                                               "{{baseUrl}}"
+                                                                           ],
+                                                                  "path":  [
+                                                                               "api",
+                                                                               "favorites",
+                                                                               "toggle",
+                                                                               "1"
+                                                                           ]
+                                                              }
+                                                  }
+                                  },
+                                  {
+                                      "name":  "TÃ¼m Favorileri Listele (Admin)",
                                       "request":  {
                                                       "method":  "GET",
                                                       "header":  [
@@ -2151,7 +2895,7 @@
                  },
                  {
                      "name":  "15. DeÄŸerlendirmeler \u0026 Yorumlar (Product Reviews)",
-                     "description":  "ÃœrÃ¼n puanlama (1-5 yÄ±ldÄ±z) ve kullanÄ±cÄ± yorumlarÄ±",
+                     "description":  "ÃœrÃ¼n puanlama (1-5 yÄ±ldÄ±z) ve kullanÄ±cÄ± yorumlarÄ± (SayfalanmÄ±ÅŸ)",
                      "item":  [
                                   {
                                       "name":  "TÃ¼m DeÄŸerlendirmeleri Listele",
@@ -2173,6 +2917,76 @@
                                                                                "api",
                                                                                "productreviews"
                                                                            ]
+                                                              }
+                                                  }
+                                  },
+                                  {
+                                      "name":  "TÃ¼m YorumlarÄ± Sayfala (Reviews Paged)",
+                                      "request":  {
+                                                      "method":  "GET",
+                                                      "header":  [
+                                                                     {
+                                                                         "key":  "Content-Type",
+                                                                         "type":  "text",
+                                                                         "value":  "application/json"
+                                                                     }
+                                                                 ],
+                                                      "url":  {
+                                                                  "raw":  "{{baseUrl}}/api/productreviews/paged?pageNumber=1\u0026pageSize=10",
+                                                                  "host":  [
+                                                                               "{{baseUrl}}"
+                                                                           ],
+                                                                  "path":  [
+                                                                               "api",
+                                                                               "productreviews",
+                                                                               "paged"
+                                                                           ],
+                                                                  "query":  [
+                                                                                {
+                                                                                    "key":  "pageNumber",
+                                                                                    "value":  "1"
+                                                                                },
+                                                                                {
+                                                                                    "key":  "pageSize",
+                                                                                    "value":  "10"
+                                                                                }
+                                                                            ]
+                                                              }
+                                                  }
+                                  },
+                                  {
+                                      "name":  "ÃœrÃ¼n YorumlarÄ±nÄ± Sayfala (Product Reviews Paged)",
+                                      "request":  {
+                                                      "method":  "GET",
+                                                      "header":  [
+                                                                     {
+                                                                         "key":  "Content-Type",
+                                                                         "type":  "text",
+                                                                         "value":  "application/json"
+                                                                     }
+                                                                 ],
+                                                      "url":  {
+                                                                  "raw":  "{{baseUrl}}/api/productreviews/product/1/paged?pageNumber=1\u0026pageSize=10",
+                                                                  "host":  [
+                                                                               "{{baseUrl}}"
+                                                                           ],
+                                                                  "path":  [
+                                                                               "api",
+                                                                               "productreviews",
+                                                                               "product",
+                                                                               "1",
+                                                                               "paged"
+                                                                           ],
+                                                                  "query":  [
+                                                                                {
+                                                                                    "key":  "pageNumber",
+                                                                                    "value":  "1"
+                                                                                },
+                                                                                {
+                                                                                    "key":  "pageSize",
+                                                                                    "value":  "10"
+                                                                                }
+                                                                            ]
                                                               }
                                                   }
                                   },
@@ -2292,7 +3106,7 @@
                  },
                  {
                      "name":  "16. ÃœrÃ¼n Soru-Cevap (Product Questions)",
-                     "description":  "MÃ¼ÅŸterinin satÄ±cÄ±ya soru sormasÄ± ve satÄ±cÄ±nÄ±n yanÄ±tlamasÄ±",
+                     "description":  "MÃ¼ÅŸterinin satÄ±cÄ±ya soru sormasÄ± ve satÄ±cÄ±nÄ±n yanÄ±tlamasÄ± (SayfalanmÄ±ÅŸ)",
                      "item":  [
                                   {
                                       "name":  "TÃ¼m SorularÄ± Listele",
@@ -2314,6 +3128,76 @@
                                                                                "api",
                                                                                "productquestions"
                                                                            ]
+                                                              }
+                                                  }
+                                  },
+                                  {
+                                      "name":  "TÃ¼m SorularÄ± Sayfala (Questions Paged)",
+                                      "request":  {
+                                                      "method":  "GET",
+                                                      "header":  [
+                                                                     {
+                                                                         "key":  "Content-Type",
+                                                                         "type":  "text",
+                                                                         "value":  "application/json"
+                                                                     }
+                                                                 ],
+                                                      "url":  {
+                                                                  "raw":  "{{baseUrl}}/api/productquestions/paged?pageNumber=1\u0026pageSize=10",
+                                                                  "host":  [
+                                                                               "{{baseUrl}}"
+                                                                           ],
+                                                                  "path":  [
+                                                                               "api",
+                                                                               "productquestions",
+                                                                               "paged"
+                                                                           ],
+                                                                  "query":  [
+                                                                                {
+                                                                                    "key":  "pageNumber",
+                                                                                    "value":  "1"
+                                                                                },
+                                                                                {
+                                                                                    "key":  "pageSize",
+                                                                                    "value":  "10"
+                                                                                }
+                                                                            ]
+                                                              }
+                                                  }
+                                  },
+                                  {
+                                      "name":  "ÃœrÃ¼n SorularÄ±nÄ± Sayfala (Product Questions Paged)",
+                                      "request":  {
+                                                      "method":  "GET",
+                                                      "header":  [
+                                                                     {
+                                                                         "key":  "Content-Type",
+                                                                         "type":  "text",
+                                                                         "value":  "application/json"
+                                                                     }
+                                                                 ],
+                                                      "url":  {
+                                                                  "raw":  "{{baseUrl}}/api/productquestions/product/1/paged?pageNumber=1\u0026pageSize=10",
+                                                                  "host":  [
+                                                                               "{{baseUrl}}"
+                                                                           ],
+                                                                  "path":  [
+                                                                               "api",
+                                                                               "productquestions",
+                                                                               "product",
+                                                                               "1",
+                                                                               "paged"
+                                                                           ],
+                                                                  "query":  [
+                                                                                {
+                                                                                    "key":  "pageNumber",
+                                                                                    "value":  "1"
+                                                                                },
+                                                                                {
+                                                                                    "key":  "pageSize",
+                                                                                    "value":  "10"
+                                                                                }
+                                                                            ]
                                                               }
                                                   }
                                   },

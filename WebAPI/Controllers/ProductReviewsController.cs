@@ -23,6 +23,30 @@ public class ProductReviewsController : ControllerBase
         return BadRequest(result);
     }
 
+    /// <summary>
+    /// Tüm yorumları sayfalanmış olarak listeler
+    /// GET: api/productreviews/paged?pageNumber=1&pageSize=10
+    /// </summary>
+    [HttpGet("paged")]
+    public IActionResult GetPaged([FromQuery] Core.Utilities.Paging.PageRequest pageRequest)
+    {
+        var result = _service.GetPaged(pageRequest);
+        if (result.Success) return Ok(result);
+        return BadRequest(result);
+    }
+
+    /// <summary>
+    /// Ürüne ait değerlendirmeleri sayfalanmış olarak listeler
+    /// GET: api/productreviews/product/5/paged?pageNumber=1&pageSize=10
+    /// </summary>
+    [HttpGet("product/{productId:int}/paged")]
+    public IActionResult GetPagedByProductId(int productId, [FromQuery] Core.Utilities.Paging.PageRequest pageRequest)
+    {
+        var result = _service.GetPagedByProductId(productId, pageRequest);
+        if (result.Success) return Ok(result);
+        return BadRequest(result);
+    }
+
     [HttpGet("{id:int}")]
     public IActionResult GetById(int id)
     {

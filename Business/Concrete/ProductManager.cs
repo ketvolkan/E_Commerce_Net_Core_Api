@@ -12,6 +12,7 @@ using Entities.Dtos.ProductImages;
 using Entities.Dtos.ProductVariants;
 using Entities.Dtos.Products;
 using Business.BusinessAspects.Autofac;
+using Core.Utilities.Paging;
 public class ProductManager : IProductService
 {
     private readonly IProductDal _productDal;
@@ -29,6 +30,14 @@ public class ProductManager : IProductService
         var productDtos = _mapper.Map<List<ProductDetailDto>>(products);
 
         return new SuccessDataResult<List<ProductDetailDto>>(productDtos, "Ürünler başarıyla listelendi.");
+    }
+
+    public IDataResult<PagedResult<ProductDetailDto>> GetPaged(PageRequest pageRequest)
+    {
+        var pagedProducts = _productDal.GetPagedListWithDetails(pageRequest.PageNumber, pageRequest.PageSize, p => p.IsActive);
+        var productDtos = _mapper.Map<List<ProductDetailDto>>(pagedProducts.Items);
+
+        return new PagedDataResult<ProductDetailDto>(productDtos, pagedProducts.TotalCount, pagedProducts.PageNumber, pagedProducts.PageSize, "Ürünler sayfalanmış olarak listelendi.");
     }
 
     [SecuredOperation("product.getall")]
@@ -53,6 +62,14 @@ public class ProductManager : IProductService
         return new SuccessDataResult<List<ProductDetailDto>>(productDtos);
     }
 
+    public IDataResult<PagedResult<ProductDetailDto>> GetPagedByCategoryId(int categoryId, PageRequest pageRequest)
+    {
+        var pagedProducts = _productDal.GetPagedListWithDetails(pageRequest.PageNumber, pageRequest.PageSize, p => p.IsActive && p.CategoryId == categoryId);
+        var productDtos = _mapper.Map<List<ProductDetailDto>>(pagedProducts.Items);
+
+        return new PagedDataResult<ProductDetailDto>(productDtos, pagedProducts.TotalCount, pagedProducts.PageNumber, pagedProducts.PageSize);
+    }
+
     public IDataResult<List<ProductDetailDto>> GetListByUserId(int userId)
     {
         var products = _productDal.GetListWithDetails(p => p.UserId == userId);
@@ -61,10 +78,93 @@ public class ProductManager : IProductService
         return new SuccessDataResult<List<ProductDetailDto>>(productDtos);
     }
 
+    public IDataResult<PagedResult<ProductDetailDto>> GetPagedByUserId(int userId, PageRequest pageRequest)
+    {
+        var pagedProducts = _productDal.GetPagedListWithDetails(pageRequest.PageNumber, pageRequest.PageSize, p => p.UserId == userId);
+        var productDtos = _mapper.Map<List<ProductDetailDto>>(pagedProducts.Items);
+
+        return new PagedDataResult<ProductDetailDto>(productDtos, pagedProducts.TotalCount, pagedProducts.PageNumber, pagedProducts.PageSize);
+    }
+
     public IDataResult<List<ProductDetailDto>> GetMyProducts()
     {
         var userId = Core.Utilities.Security.CurrentUser.GetUserId();
         return GetListByUserId(userId);
+    }
+
+    public IDataResult<PagedResult<ProductDetailDto>> GetMyProductsPaged(PageRequest pageRequest)
+    {
+        var userId = Core.Utilities.Security.CurrentUser.GetUserId();
+        return GetPagedByUserId(userId, pageRequest);
+    }
+
+    public IDataResult<List<ProductDetailDto>> GetFeaturedProducts()
+    {
+        var products = _productDal.GetListWithDetails(p => p.IsActive)
+            .OrderByDescending(p => p.CreatedAt)
+            .Take(12)
+            .ToList();
+        var productDtos = _mapper.Map<List<ProductDetailDto>>(products);
+        return new SuccessDataResult<List<ProductDetailDto>>(productDtos);
+    }
+
+    public IDataResult<PagedResult<ProductDetailDto>> Search(ProductFilterDto filter)
+    {
+        var products = _productDal.GetListWithDetails(p => p.IsActive);
+
+        if (!string.IsNullOrWhiteSpace(filter.Keyword))
+        {
+            var keyword = filter.Keyword.Trim().ToLower();
+            products = products.Where(p =>
+                (p.Name != null && p.Name.ToLower().Contains(keyword)) ||
+                (p.Description != null && p.Description.ToLower().Contains(keyword))
+            ).ToList();
+        }
+
+        if (filter.CategoryId.HasValue)
+        {
+            products = products.Where(p => p.CategoryId == filter.CategoryId.Value).ToList();
+        }
+
+        if (filter.BrandId.HasValue)
+        {
+            products = products.Where(p => p.BrandId == filter.BrandId.Value).ToList();
+        }
+
+        if (filter.StoreId.HasValue)
+        {
+            products = products.Where(p => p.ProductVariants.Any(v => v.StoreId == filter.StoreId.Value)).ToList();
+        }
+
+        if (filter.MinPrice.HasValue)
+        {
+            products = products.Where(p => p.ProductVariants.Any(v => v.Price >= filter.MinPrice.Value)).ToList();
+        }
+
+        if (filter.MaxPrice.HasValue)
+        {
+            products = products.Where(p => p.ProductVariants.Any(v => v.Price <= filter.MaxPrice.Value)).ToList();
+        }
+
+        if (!string.IsNullOrWhiteSpace(filter.SortBy))
+        {
+            products = filter.SortBy.ToLower() switch
+            {
+                "price_asc" => products.OrderBy(p => p.ProductVariants.Any() ? p.ProductVariants.Min(v => v.Price) : 0).ToList(),
+                "price_desc" => products.OrderByDescending(p => p.ProductVariants.Any() ? p.ProductVariants.Max(v => v.Price) : 0).ToList(),
+                "newest" => products.OrderByDescending(p => p.CreatedAt).ToList(),
+                "name" => products.OrderBy(p => p.Name).ToList(),
+                _ => products
+            };
+        }
+
+        var totalCount = products.Count();
+        var safePageNumber = filter.PageNumber < 1 ? 1 : filter.PageNumber;
+        var safePageSize = filter.PageSize < 1 ? 12 : filter.PageSize;
+        var pagedItems = products.Skip((safePageNumber - 1) * safePageSize).Take(safePageSize).ToList();
+
+        var productDtos = _mapper.Map<List<ProductDetailDto>>(pagedItems);
+        return new PagedDataResult<ProductDetailDto>(productDtos, totalCount, safePageNumber, safePageSize);
     }
 
     [ValidationAspect(typeof(CreateProductDtoValidator))]

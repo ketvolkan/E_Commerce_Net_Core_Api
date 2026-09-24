@@ -32,6 +32,51 @@ public class ProductsController : ControllerBase
     }
 
     /// <summary>
+    /// Ürünleri sayfalanmış (paginated) olarak listeler
+    /// GET: api/products/paged?pageNumber=1&pageSize=10
+    /// </summary>
+    [HttpGet("paged")]
+    public IActionResult GetPaged([FromQuery] Core.Utilities.Paging.PageRequest pageRequest)
+    {
+        var result = _productService.GetPaged(pageRequest);
+        if (result.Success)
+        {
+            return Ok(result);
+        }
+        return BadRequest(result);
+    }
+
+    /// <summary>
+    /// Öne çıkan / son eklenen aktif ürünleri listeler (Ana sayfa vitrini)
+    /// GET: api/products/featured
+    /// </summary>
+    [HttpGet("featured")]
+    public IActionResult GetFeatured()
+    {
+        var result = _productService.GetFeaturedProducts();
+        if (result.Success)
+        {
+            return Ok(result);
+        }
+        return BadRequest(result);
+    }
+
+    /// <summary>
+    /// Ürün filtreleme ve arama (Kategori, marka, mağaza, fiyat ve sıralama)
+    /// GET: api/products/search
+    /// </summary>
+    [HttpGet("search")]
+    public IActionResult Search([FromQuery] ProductFilterDto filter)
+    {
+        var result = _productService.Search(filter);
+        if (result.Success)
+        {
+            return Ok(result);
+        }
+        return BadRequest(result);
+    }
+
+    /// <summary>
     /// ID değerine göre tek bir ürün getirir
     /// GET: api/products/5
     /// </summary>
@@ -62,6 +107,21 @@ public class ProductsController : ControllerBase
     }
 
     /// <summary>
+    /// Belirli bir kategoriye ait ürünleri sayfalanmış olarak listeler
+    /// GET: api/products/category/2/paged?pageNumber=1&pageSize=10
+    /// </summary>
+    [HttpGet("category/{categoryId:int}/paged")]
+    public IActionResult GetByCategoryIdPaged(int categoryId, [FromQuery] Core.Utilities.Paging.PageRequest pageRequest)
+    {
+        var result = _productService.GetPagedByCategoryId(categoryId, pageRequest);
+        if (result.Success)
+        {
+            return Ok(result);
+        }
+        return BadRequest(result);
+    }
+
+    /// <summary>
     /// Giriş yapan satıcının kendi ürünlerini listeler
     /// GET: api/products/my-products
     /// </summary>
@@ -77,6 +137,21 @@ public class ProductsController : ControllerBase
     }
 
     /// <summary>
+    /// Giriş yapan satıcının kendi ürünlerini sayfalanmış olarak listeler
+    /// GET: api/products/my-products/paged?pageNumber=1&pageSize=10
+    /// </summary>
+    [HttpGet("my-products/paged")]
+    public IActionResult GetMyProductsPaged([FromQuery] Core.Utilities.Paging.PageRequest pageRequest)
+    {
+        var result = _productService.GetMyProductsPaged(pageRequest);
+        if (result.Success)
+        {
+            return Ok(result);
+        }
+        return BadRequest(result);
+    }
+
+    /// <summary>
     /// Belirli bir satıcıya ait ürünleri listeler
     /// GET: api/products/user/2
     /// </summary>
@@ -84,6 +159,21 @@ public class ProductsController : ControllerBase
     public IActionResult GetByUserId(int userId)
     {
         var result = _productService.GetListByUserId(userId);
+        if (result.Success)
+        {
+            return Ok(result);
+        }
+        return BadRequest(result);
+    }
+
+    /// <summary>
+    /// Belirli bir satıcıya ait ürünleri sayfalanmış olarak listeler
+    /// GET: api/products/user/2/paged?pageNumber=1&pageSize=10
+    /// </summary>
+    [HttpGet("user/{userId:int}/paged")]
+    public IActionResult GetByUserIdPaged(int userId, [FromQuery] Core.Utilities.Paging.PageRequest pageRequest)
+    {
+        var result = _productService.GetPagedByUserId(userId, pageRequest);
         if (result.Success)
         {
             return Ok(result);

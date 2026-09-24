@@ -5,4 +5,5 @@ using Entities.Concrete;
 
 public interface ICartDal : IEntityRepository<Cart>
 {
+    Cart? GetCartWithDetails(int userId);
 }

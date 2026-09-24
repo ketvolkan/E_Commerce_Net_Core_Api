@@ -15,6 +15,18 @@ public class AddressesController : ControllerBase
         _addressService = addressService;
     }
 
+    /// <summary>
+    /// Giriş yapan kullanıcının kayıtlı adreslerini listeler (Checkout adres seçimi için)
+    /// GET: api/addresses/my-addresses
+    /// </summary>
+    [HttpGet("my-addresses")]
+    public IActionResult GetMyAddresses()
+    {
+        var result = _addressService.GetMyAddresses();
+        if (result.Success) return Ok(result);
+        return BadRequest(result);
+    }
+
     [HttpGet]
     public IActionResult GetAll()
     {

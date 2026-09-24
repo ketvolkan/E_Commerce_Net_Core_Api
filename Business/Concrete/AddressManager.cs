@@ -25,6 +25,15 @@ public class AddressManager : IAddressService
         return new SuccessDataResult<List<UpdateAddressDto>>(_mapper.Map<List<UpdateAddressDto>>(list));
     }
 
+    public IDataResult<List<UpdateAddressDto>> GetMyAddresses()
+    {
+        var userId = Core.Utilities.Security.CurrentUser.GetUserId();
+        if (userId <= 0) return new ErrorDataResult<List<UpdateAddressDto>>("Kullanıcı oturumu bulunamadı.");
+
+        var list = _addressDal.GetList(a => a.UserId == userId);
+        return new SuccessDataResult<List<UpdateAddressDto>>(_mapper.Map<List<UpdateAddressDto>>(list));
+    }
+
     public IDataResult<UpdateAddressDto> GetById(int id)
     {
         var entity = _addressDal.Get(a => a.Id == id);

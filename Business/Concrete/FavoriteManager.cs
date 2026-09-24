@@ -9,15 +9,73 @@ using Entities.Concrete;
 using Entities.Dtos.Favorites;
 using Business.BusinessAspects.Autofac;
 
+using System.Linq;
+
 public class FavoriteManager : IFavoriteService
 {
     private readonly IFavoriteDal _favoriteDal;
+    private readonly IProductDal _productDal;
     private readonly IMapper _mapper;
 
-    public FavoriteManager(IFavoriteDal favoriteDal, IMapper mapper)
+    public FavoriteManager(IFavoriteDal favoriteDal, IProductDal productDal, IMapper mapper)
     {
         _favoriteDal = favoriteDal;
+        _productDal = productDal;
         _mapper = mapper;
+    }
+
+    public IDataResult<List<FavoriteProductDto>> GetMyFavorites()
+    {
+        var userId = Core.Utilities.Security.CurrentUser.GetUserId();
+        if (userId <= 0) return new ErrorDataResult<List<FavoriteProductDto>>("Kullanıcı oturumu bulunamadı.");
+
+        var favorites = _favoriteDal.GetList(f => f.UserId == userId);
+        if (!favorites.Any()) return new SuccessDataResult<List<FavoriteProductDto>>(new List<FavoriteProductDto>());
+
+        var productIds = favorites.Select(f => f.ProductId).ToList();
+        var products = _productDal.GetListWithDetails(p => productIds.Contains(p.Id));
+
+        var dtos = favorites.Select(f =>
+        {
+            var p = products.FirstOrDefault(prod => prod.Id == f.ProductId);
+            var minPrice = p?.ProductVariants?.Any() == true ? p.ProductVariants.Min(v => v.Price) : 0;
+            var minDiscount = p?.ProductVariants?.Where(v => v.DiscountPrice > 0).Select(v => (decimal?)v.DiscountPrice).Min();
+
+            return new FavoriteProductDto
+            {
+                FavoriteId = f.Id,
+                ProductId = f.ProductId,
+                ProductName = p?.Name ?? "Ürün",
+                CategoryName = p?.Category?.Name ?? string.Empty,
+                BrandName = p?.Brand?.Name ?? string.Empty,
+                ImageUrl = p?.ProductImages?.OrderBy(pi => pi.DisplayOrder).FirstOrDefault()?.ImageUrl ?? string.Empty,
+                MinPrice = minPrice,
+                DiscountPrice = minDiscount
+            };
+        }).ToList();
+
+        return new SuccessDataResult<List<FavoriteProductDto>>(dtos);
+    }
+
+    public IResult ToggleFavorite(int productId)
+    {
+        var userId = Core.Utilities.Security.CurrentUser.GetUserId();
+        if (userId <= 0) return new ErrorResult("Kullanıcı oturumu bulunamadı.");
+
+        var existing = _favoriteDal.Get(f => f.UserId == userId && f.ProductId == productId);
+        if (existing != null)
+        {
+            _favoriteDal.Delete(existing);
+            return new SuccessResult("Ürün favorilerden kaldırıldı.");
+        }
+
+        var newFav = new Favorite
+        {
+            UserId = userId,
+            ProductId = productId
+        };
+        _favoriteDal.Add(newFav);
+        return new SuccessResult("Ürün favorilere eklendi.");
     }
 
     [SecuredOperation("favorite.get")]

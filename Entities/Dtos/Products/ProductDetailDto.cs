@@ -13,6 +13,8 @@ namespace Entities.Dtos.Products
         public string BrandName { get; set; } = string.Empty;
         public string Name { get; set; } = string.Empty;
         public string Description { get; set; } = string.Empty;
+        public bool IsActive { get; set; } = true;
+        public DateTime CreatedAt { get; set; }
 
         public List<ProductImageDto> Images { get; set; } = new();
         public List<ProductVariantDto> Variants { get; set; } = new();

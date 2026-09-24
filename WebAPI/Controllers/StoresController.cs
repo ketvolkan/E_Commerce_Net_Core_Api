@@ -23,6 +23,18 @@ public class StoresController : ControllerBase
         return BadRequest(result);
     }
 
+    /// <summary>
+    /// Mağazaları sayfalanmış olarak listeler
+    /// GET: api/stores/paged?pageNumber=1&pageSize=10
+    /// </summary>
+    [HttpGet("paged")]
+    public IActionResult GetPaged([FromQuery] Core.Utilities.Paging.PageRequest pageRequest)
+    {
+        var result = _storeService.GetPaged(pageRequest);
+        if (result.Success) return Ok(result);
+        return BadRequest(result);
+    }
+
     [HttpGet("{id:int}")]
     public IActionResult GetById(int id)
     {

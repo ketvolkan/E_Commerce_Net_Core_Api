@@ -23,6 +23,18 @@ public class BrandsController : ControllerBase
         return BadRequest(result);
     }
 
+    /// <summary>
+    /// Markaları sayfalanmış olarak listeler
+    /// GET: api/brands/paged?pageNumber=1&pageSize=10
+    /// </summary>
+    [HttpGet("paged")]
+    public IActionResult GetPaged([FromQuery] Core.Utilities.Paging.PageRequest pageRequest)
+    {
+        var result = _brandService.GetPaged(pageRequest);
+        if (result.Success) return Ok(result);
+        return BadRequest(result);
+    }
+
     [HttpGet("{id:int}")]
     public IActionResult GetById(int id)
     {
@@ -35,6 +47,18 @@ public class BrandsController : ControllerBase
     public IActionResult GetMyBrands()
     {
         var result = _brandService.GetMyBrands();
+        if (result.Success) return Ok(result);
+        return BadRequest(result);
+    }
+
+    /// <summary>
+    /// Giriş yapan satıcının markalarını sayfalanmış olarak listeler
+    /// GET: api/brands/my-brands/paged?pageNumber=1&pageSize=10
+    /// </summary>
+    [HttpGet("my-brands/paged")]
+    public IActionResult GetMyBrandsPaged([FromQuery] Core.Utilities.Paging.PageRequest pageRequest)
+    {
+        var result = _brandService.GetMyBrandsPaged(pageRequest);
         if (result.Success) return Ok(result);
         return BadRequest(result);
     }

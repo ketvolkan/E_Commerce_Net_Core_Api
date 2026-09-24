@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Text;
@@ -10,6 +10,7 @@ namespace Core.DataAccess
     {
         T Get(Expression<Func<T, bool>> filter);
         IList<T> GetList(Expression<Func<T, bool>> filter=null);
+        Core.Utilities.Paging.PagedResult<T> GetPagedList(int pageNumber, int pageSize, Expression<Func<T, bool>> filter = null);
         void Add(T entity);
         void Update(T entity);
         void Delete(T entity);

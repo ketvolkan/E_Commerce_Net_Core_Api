@@ -15,6 +15,30 @@ public class FavoritesController : ControllerBase
         _favoriteService = favoriteService;
     }
 
+    /// <summary>
+    /// Giriş yapan kullanıcının favori ürünlerini detaylı liste olarak getirir
+    /// GET: api/favorites/my-favorites
+    /// </summary>
+    [HttpGet("my-favorites")]
+    public IActionResult GetMyFavorites()
+    {
+        var result = _favoriteService.GetMyFavorites();
+        if (result.Success) return Ok(result);
+        return BadRequest(result);
+    }
+
+    /// <summary>
+    /// Ürünü favorilere ekler veya zaten favorideyse çıkarır (Toggle Heart)
+    /// POST: api/favorites/toggle/5
+    /// </summary>
+    [HttpPost("toggle/{productId:int}")]
+    public IActionResult Toggle(int productId)
+    {
+        var result = _favoriteService.ToggleFavorite(productId);
+        if (result.Success) return Ok(result);
+        return BadRequest(result);
+    }
+
     [HttpGet]
     public IActionResult GetAll()
     {

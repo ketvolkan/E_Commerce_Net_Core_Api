@@ -1,4 +1,4 @@
-﻿namespace WebAPI.Controllers;
+namespace WebAPI.Controllers;
 
 using Business.Abstract;
 using Entities.DTOs;
@@ -60,5 +60,18 @@ public class AuthController : ControllerBase
         return BadRequest(result);
     }
 
-    // register-store endpoint removed; use POST api/auth/register and set AccountType in DTO if needed
+    /// <summary>
+    /// Giriş yapmış olan kullanıcının profil ve rol bilgilerini getirir
+    /// GET: api/auth/me
+    /// </summary>
+    [HttpGet("me")]
+    public IActionResult GetMe()
+    {
+        var result = _authService.GetMe();
+        if (result.Success)
+        {
+            return Ok(result);
+        }
+        return BadRequest(result);
+    }
 }

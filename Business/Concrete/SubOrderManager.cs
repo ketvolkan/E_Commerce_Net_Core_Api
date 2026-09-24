@@ -8,15 +8,79 @@ using DataAccess.Abstract;
 using Entities.Concrete;
 using Entities.Dtos.SubOrders;
 
+using System.Linq;
+using Core.Utilities.Paging;
+
 public class SubOrderManager : ISubOrderService
 {
     private readonly ISubOrderDal _subOrderDal;
+    private readonly IStoreDal _storeDal;
+    private readonly IOrderItemDal _orderItemDal;
     private readonly IMapper _mapper;
 
-    public SubOrderManager(ISubOrderDal subOrderDal, IMapper mapper)
+    public SubOrderManager(ISubOrderDal subOrderDal, IStoreDal storeDal, IOrderItemDal orderItemDal, IMapper mapper)
     {
         _subOrderDal = subOrderDal;
+        _storeDal = storeDal;
+        _orderItemDal = orderItemDal;
         _mapper = mapper;
+    }
+
+    public IDataResult<List<Entities.Dtos.Orders.SubOrderDetailDto>> GetMyStoreOrders()
+    {
+        var userId = Core.Utilities.Security.CurrentUser.GetUserId();
+        if (userId <= 0) return new ErrorDataResult<List<Entities.Dtos.Orders.SubOrderDetailDto>>("Kullanıcı oturumu bulunamadı.");
+
+        var stores = _storeDal.GetList(s => s.UserId == userId);
+        if (!stores.Any())
+        {
+            return new SuccessDataResult<List<Entities.Dtos.Orders.SubOrderDetailDto>>(new List<Entities.Dtos.Orders.SubOrderDetailDto>());
+        }
+
+        var storeIds = stores.Select(s => s.Id).ToList();
+        var subOrders = _subOrderDal.GetList(so => storeIds.Contains(so.StoreId));
+
+        var dtos = subOrders.Select(so =>
+        {
+            var store = stores.FirstOrDefault(s => s.Id == so.StoreId);
+            var items = _orderItemDal.GetList(oi => oi.SubOrderId == so.Id);
+
+            return new Entities.Dtos.Orders.SubOrderDetailDto
+            {
+                Id = so.Id,
+                StoreId = so.StoreId,
+                StoreName = store?.Name ?? "Mağaza",
+                SubOrderNumber = so.SubOrderNumber,
+                TotalPrice = so.TotalPrice,
+                Status = so.Status,
+                CargoTrackingNumber = so.CargoTrackingNumber,
+                CargoCompany = so.CargoCompany,
+                CreatedDate = so.CreatedDate,
+                Items = items.Select(oi => new Entities.Dtos.Orders.OrderItemDetailDto
+                {
+                    Id = oi.Id,
+                    ProductVariantId = oi.ProductVariantId,
+                    ProductName = oi.ProductName,
+                    VariantInfo = oi.VariantInfo,
+                    Quantity = oi.Quantity,
+                    UnitPrice = oi.UnitPrice
+                }).ToList()
+            };
+        }).OrderByDescending(so => so.CreatedDate).ToList();
+
+        return new SuccessDataResult<List<Entities.Dtos.Orders.SubOrderDetailDto>>(dtos);
+    }
+
+    public IDataResult<PagedResult<Entities.Dtos.Orders.SubOrderDetailDto>> GetMyStoreOrdersPaged(PageRequest pageRequest)
+    {
+        var result = GetMyStoreOrders();
+        if (!result.Success)
+        {
+            return new ErrorDataResult<PagedResult<Entities.Dtos.Orders.SubOrderDetailDto>>(result.Message);
+        }
+
+        var paged = result.Data.ToPagedResult(pageRequest.PageNumber, pageRequest.PageSize);
+        return new SuccessDataResult<PagedResult<Entities.Dtos.Orders.SubOrderDetailDto>>(paged);
     }
 
     public IDataResult<List<UpdateSubOrderDto>> GetAll()
@@ -39,6 +103,18 @@ public class SubOrderManager : ISubOrderService
         }
 
         return new SuccessDataResult<List<UpdateSubOrderDto>>(new List<UpdateSubOrderDto>());
+    }
+
+    public IDataResult<PagedResult<UpdateSubOrderDto>> GetPaged(PageRequest pageRequest)
+    {
+        var result = GetAll();
+        if (!result.Success)
+        {
+            return new ErrorDataResult<PagedResult<UpdateSubOrderDto>>(result.Message);
+        }
+
+        var paged = result.Data.ToPagedResult(pageRequest.PageNumber, pageRequest.PageSize);
+        return new SuccessDataResult<PagedResult<UpdateSubOrderDto>>(paged);
     }
 
     public IDataResult<UpdateSubOrderDto> GetById(int id)

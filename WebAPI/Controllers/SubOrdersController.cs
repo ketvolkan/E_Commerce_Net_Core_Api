@@ -15,10 +15,46 @@ public class SubOrdersController : ControllerBase
         _subOrderService = subOrderService;
     }
 
+    /// <summary>
+    /// Giriş yapan satıcının mağazasına gelen siparişleri listeler
+    /// GET: api/suborders/my-store-orders
+    /// </summary>
+    [HttpGet("my-store-orders")]
+    public IActionResult GetMyStoreOrders()
+    {
+        var result = _subOrderService.GetMyStoreOrders();
+        if (result.Success) return Ok(result);
+        return BadRequest(result);
+    }
+
+    /// <summary>
+    /// Giriş yapan satıcının mağazasına gelen siparişleri sayfalanmış olarak listeler
+    /// GET: api/suborders/my-store-orders/paged?pageNumber=1&pageSize=10
+    /// </summary>
+    [HttpGet("my-store-orders/paged")]
+    public IActionResult GetMyStoreOrdersPaged([FromQuery] Core.Utilities.Paging.PageRequest pageRequest)
+    {
+        var result = _subOrderService.GetMyStoreOrdersPaged(pageRequest);
+        if (result.Success) return Ok(result);
+        return BadRequest(result);
+    }
+
     [HttpGet]
     public IActionResult GetAll()
     {
         var result = _subOrderService.GetAll();
+        if (result.Success) return Ok(result);
+        return BadRequest(result);
+    }
+
+    /// <summary>
+    /// Tüm alt siparişleri sayfalanmış olarak listeler
+    /// GET: api/suborders/paged?pageNumber=1&pageSize=10
+    /// </summary>
+    [HttpGet("paged")]
+    public IActionResult GetPaged([FromQuery] Core.Utilities.Paging.PageRequest pageRequest)
+    {
+        var result = _subOrderService.GetPaged(pageRequest);
         if (result.Success) return Ok(result);
         return BadRequest(result);
     }

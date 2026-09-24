@@ -1,4 +1,4 @@
-﻿namespace DataAccess.Configurations;
+namespace DataAccess.Configurations;
 
 using Entities.Concrete;
 using Microsoft.EntityFrameworkCore;
@@ -19,6 +19,11 @@ public class OrderConfiguration : IEntityTypeConfiguration<Order>
         builder.HasOne(o => o.ShippingAddress)
                .WithMany()
                .HasForeignKey(o => o.ShippingAddressId)
+               .OnDelete(DeleteBehavior.Restrict);
+
+        builder.HasOne(o => o.BillingAddress)
+               .WithMany()
+               .HasForeignKey(o => o.BillingAddressId)
                .OnDelete(DeleteBehavior.Restrict);
     }
 }
